@@ -1,0 +1,126 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\U .net\\WebApplication1\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{375D2FC8-27F2-4589-9AA5-B2A8AF791301}|Proyecto.csproj|d:\\u .net\\webapplication1\\models\\cotizador.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{375D2FC8-27F2-4589-9AA5-B2A8AF791301}|Proyecto.csproj|solutionrelative:models\\cotizador.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{375D2FC8-27F2-4589-9AA5-B2A8AF791301}|Proyecto.csproj|d:\\u .net\\webapplication1\\models\\reservavisita.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{375D2FC8-27F2-4589-9AA5-B2A8AF791301}|Proyecto.csproj|solutionrelative:models\\reservavisita.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{375D2FC8-27F2-4589-9AA5-B2A8AF791301}|Proyecto.csproj|d:\\u .net\\webapplication1\\models\\vehiculo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{375D2FC8-27F2-4589-9AA5-B2A8AF791301}|Proyecto.csproj|solutionrelative:models\\vehiculo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{375D2FC8-27F2-4589-9AA5-B2A8AF791301}|Proyecto.csproj|d:\\u .net\\webapplication1\\models\\sucursal.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{375D2FC8-27F2-4589-9AA5-B2A8AF791301}|Proyecto.csproj|solutionrelative:models\\sucursal.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{375D2FC8-27F2-4589-9AA5-B2A8AF791301}|Proyecto.csproj|d:\\u .net\\webapplication1\\models\\categoria.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{375D2FC8-27F2-4589-9AA5-B2A8AF791301}|Proyecto.csproj|solutionrelative:models\\categoria.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{375D2FC8-27F2-4589-9AA5-B2A8AF791301}|Proyecto.csproj|d:\\u .net\\webapplication1\\controllers\\homeautos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{375D2FC8-27F2-4589-9AA5-B2A8AF791301}|Proyecto.csproj|solutionrelative:controllers\\homeautos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{fbcae063-e2c0-4ab1-a516-996ea3dafb72}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Cotizador.cs",
+              "DocumentMoniker": "D:\\U .net\\WebApplication1\\Models\\Cotizador.cs",
+              "RelativeDocumentMoniker": "Models\\Cotizador.cs",
+              "ToolTip": "D:\\U .net\\WebApplication1\\Models\\Cotizador.cs",
+              "RelativeToolTip": "Models\\Cotizador.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAB0AAAAmAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-17T05:16:04.521Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "ReservaVisita.cs",
+              "DocumentMoniker": "D:\\U .net\\WebApplication1\\Models\\ReservaVisita.cs",
+              "RelativeDocumentMoniker": "Models\\ReservaVisita.cs",
+              "ToolTip": "D:\\U .net\\WebApplication1\\Models\\ReservaVisita.cs",
+              "RelativeToolTip": "Models\\ReservaVisita.cs",
+              "ViewState": "AgIAAAcAAAAAAAAAAAAzwCMAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-17T05:14:19.384Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Vehiculo.cs",
+              "DocumentMoniker": "D:\\U .net\\WebApplication1\\Models\\Vehiculo.cs",
+              "RelativeDocumentMoniker": "Models\\Vehiculo.cs",
+              "ToolTip": "D:\\U .net\\WebApplication1\\Models\\Vehiculo.cs",
+              "RelativeToolTip": "Models\\Vehiculo.cs",
+              "ViewState": "AgIAAB4AAAAAAAAAAAAswC4AAAAdAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-17T05:13:38.283Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Sucursal.cs",
+              "DocumentMoniker": "D:\\U .net\\WebApplication1\\Models\\Sucursal.cs",
+              "RelativeDocumentMoniker": "Models\\Sucursal.cs",
+              "ToolTip": "D:\\U .net\\WebApplication1\\Models\\Sucursal.cs",
+              "RelativeToolTip": "Models\\Sucursal.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABkAAAAOAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-17T05:13:11.053Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Categoria.cs",
+              "DocumentMoniker": "D:\\U .net\\WebApplication1\\Models\\Categoria.cs",
+              "RelativeDocumentMoniker": "Models\\Categoria.cs",
+              "ToolTip": "D:\\U .net\\WebApplication1\\Models\\Categoria.cs",
+              "RelativeToolTip": "Models\\Categoria.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAABEAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-17T05:12:13.199Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "HomeAutos.cs",
+              "DocumentMoniker": "D:\\U .net\\WebApplication1\\Controllers\\HomeAutos.cs",
+              "RelativeDocumentMoniker": "Controllers\\HomeAutos.cs",
+              "ToolTip": "D:\\U .net\\WebApplication1\\Controllers\\HomeAutos.cs",
+              "RelativeToolTip": "Controllers\\HomeAutos.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACEAAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-17T05:00:22.591Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
