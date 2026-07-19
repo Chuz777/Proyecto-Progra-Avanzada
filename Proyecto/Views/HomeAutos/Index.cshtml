@@ -1,0 +1,51 @@
+﻿@model IEnumerable<WebApplication1.Models.Vehiculo>
+
+@{
+    ViewBag.Title = "Inventario";
+}
+
+<div class="page-header">
+    <span class="label">Concesionario</span>
+    <h2>Inventario de Vehículos</h2>
+</div>
+
+<div class="page-content">
+
+    <a class="boton btn-primary" href="@Url.Action("Create")" style="margin-bottom:1.5rem; display:inline-block;">
+        + Agregar Vehículo
+    </a>
+
+    @if (!Model.Any())
+    {
+        <p style="color:#7a7f8e;">Todavía no hay vehículos registrados.</p>
+    }
+    else
+    {
+        <div class="grid-vehiculos">
+            @foreach (var v in Model)
+            {
+                <div class="card-vehiculo">
+                    @if (!string.IsNullOrEmpty(v.ImagenUrl))
+                    {
+                        <img src="@v.ImagenUrl" alt="@v.Modelo" />
+                    }
+                    <div class="card-body">
+                        <span class="badge @(v.Estado == "Disponible" ? "disponible" : v.Estado == "Reservado" ? "reservado" : "vendido")">
+                            @v.Estado
+                        </span>
+                        <h3>@v.Modelo</h3>
+                        <span class="precio">₡@v.Precio.ToString("N0")</span>
+                        <span class="descripcion">@v.Descripcion</span>
+
+                        <div class="card-actions">
+                            <a class="boton btn-secondary" href="@Url.Action("Details", new { id = v.Id })">Ver</a>
+                            <a class="boton btn-secondary" href="@Url.Action("Edit", new { id = v.Id })">Editar</a>
+                            <a class="boton btn-danger" href="@Url.Action("Delete", new { id = v.Id })">Eliminar</a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+
+</div>

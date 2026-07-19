@@ -6,7 +6,7 @@ using System.Web.Mvc;
 
 namespace WebApplication1.Controllers
 {
-    public class HomeAutos : Controller
+    public class HomeAutosController : Controller
     {
         // GET: HomeAutos
         public ActionResult Index()
@@ -15,11 +15,12 @@ namespace WebApplication1.Controllers
         }
 
         // GET: HomeAutos/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
-
+      public ActionResult Create()
+{
+    ViewBag.CategoriaId = new SelectList(new List<SelectListItem>());
+    ViewBag.SucursalId = new SelectList(new List<SelectListItem>());
+    return View();
+}
         // GET: HomeAutos/Create
         public ActionResult Create()
         {

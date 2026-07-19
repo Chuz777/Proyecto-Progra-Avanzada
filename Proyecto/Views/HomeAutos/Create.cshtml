@@ -1,0 +1,61 @@
+﻿@model WebApplication1.Models.Vehiculo
+
+@{
+    ViewBag.Title = "Agregar Vehículo";
+}
+
+<div class="page-header">
+    <span class="label">Inventario</span>
+    <h2>Añadir nuevo vehículo</h2>
+</div>
+
+<div class="page-content">
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="form-grid">
+            <div class="form-group full">
+                <label>Modelo</label>
+                @Html.TextBoxFor(m => m.Modelo)
+                @Html.ValidationMessageFor(m => m.Modelo, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group">
+                <label>Precio</label>
+                @Html.TextBoxFor(m => m.Precio)
+                @Html.ValidationMessageFor(m => m.Precio, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group">
+                <label>Ruta de la Imagen</label>
+                @Html.TextBoxFor(m => m.ImagenUrl)
+                @Html.ValidationMessageFor(m => m.ImagenUrl, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group">
+                <label>Categoría</label>
+                @Html.DropDownList("CategoriaId", null, "— Selecciona —")
+                @Html.ValidationMessageFor(m => m.CategoriaId, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group">
+                <label>Sucursal</label>
+                @Html.DropDownList("SucursalId", null, "— Selecciona —")
+                @Html.ValidationMessageFor(m => m.SucursalId, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group full">
+                <label>Descripción</label>
+                @Html.TextAreaFor(m => m.Descripcion)
+                @Html.ValidationMessageFor(m => m.Descripcion, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group full">
+                <button type="submit" class="boton btn-primary">Guardar Vehículo</button>
+                <a class="boton btn-secondary" href="@Url.Action("Index")">Cancelar</a>
+            </div>
+        </div>
+    }
+</div>

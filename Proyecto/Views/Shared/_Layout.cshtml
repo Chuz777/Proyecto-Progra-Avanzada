@@ -1,0 +1,26 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewBag.Title — Concesionario Digital</title>
+    <link rel="stylesheet" href="~/Content/site.css" />
+</head>
+<body>
+
+    <nav>
+        <a class="nav-brand" href="@Url.Action("Index", "HomeAutos")"><span>CD</span> CONCESIONARIO</a>
+        <div class="nav-links">
+            <a href="@Url.Action("Index", "HomeAutos")">Inventario</a>
+            <a href="@Url.Action("Create", "HomeAutos")">Agregar Vehículo</a>
+        </div>
+    </nav>
+
+    <main>
+        @RenderBody()
+    </main>
+
+    <footer>© 2026 Concesionario Digital — San José, Costa Rica</footer>
+
+</body>
+</html>
