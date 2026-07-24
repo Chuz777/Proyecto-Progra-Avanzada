@@ -1,6 +1,7 @@
 ﻿using System;
 
-namespace WebApplication1.Models
+
+namespace Proyecto.Models.Entities
 {
 	public class Usuario
 	{

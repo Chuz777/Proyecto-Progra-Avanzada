@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.ComponentModel.DataAnnotations;
 
-namespace WebApplication1.Models
+namespace Proyecto.Models.Entities
 {
     public class Categoria
     {

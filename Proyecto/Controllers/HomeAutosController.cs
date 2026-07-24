@@ -4,9 +4,9 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace WebApplication1.Controllers
+namespace Proyecto.Controllers
 {
-    public class HomeAutosController : Controller
+    public class HomeAutosController : BaseController
     {
         // GET: HomeAutos
         public ActionResult Index()
@@ -22,10 +22,7 @@ namespace WebApplication1.Controllers
     return View();
 }
         // GET: HomeAutos/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
+        
 
         // POST: HomeAutos/Create
         [HttpPost]

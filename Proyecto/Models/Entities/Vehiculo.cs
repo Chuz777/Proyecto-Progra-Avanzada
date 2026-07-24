@@ -5,17 +5,27 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
-namespace WebApplication1.Models
+namespace Proyecto.Models.Entities
 {
     public class Vehiculo
     {
-
         [Key]
         public int Id { get; set; }
+
+        [Required(ErrorMessage = "La marca es obligatoria.")]
+        [StringLength(100)]
+        public string Marca { get; set; }
 
         [Required(ErrorMessage = "El modelo es obligatorio.")]
         [StringLength(100)]
         public string Modelo { get; set; }
+
+        [Required(ErrorMessage = "El año es obligatorio.")]
+        public int Anio { get; set; }
+
+        [StringLength(50)]
+        [Display(Name = "Número de VIN / Chasis")]
+        public string VIN { get; set; }
 
         [Required(ErrorMessage = "El precio es obligatorio.")]
         [Range(1, 100000000, ErrorMessage = "Precio inválido.")]
@@ -33,7 +43,7 @@ namespace WebApplication1.Models
         [StringLength(20)]
         public string Estado { get; set; } = "Disponible"; // "Disponible", "Reservado", "Vendido"
 
-        // la relaciones db
+        // Relaciones DB
         [Required(ErrorMessage = "Debe asignar una categoría.")]
         public int CategoriaId { get; set; }
         [ForeignKey("CategoriaId")]
@@ -44,13 +54,12 @@ namespace WebApplication1.Models
         [ForeignKey("SucursalId")]
         public virtual Sucursal Sucursal { get; set; }
 
-        // logica de diagrama
+        // Lógica de dominio
         public void MarcarVendido() { this.Estado = "Vendido"; }
         public bool EstaDisponible() { return this.Estado == "Disponible"; }
         public decimal AplicarDescuento(decimal porcentaje)
         {
             return this.Precio - (this.Precio * (porcentaje / 100));
         }
-
     }
 }

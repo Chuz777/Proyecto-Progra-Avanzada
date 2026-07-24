@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
-namespace WebApplication1.Models
+namespace Proyecto.Models.Entities
 {
     public class Sucursal
     {

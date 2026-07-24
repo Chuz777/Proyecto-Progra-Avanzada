@@ -8,7 +8,7 @@ using System.Web.Security;
 using System.Web.SessionState;
 using System.Web.Http;
 
-namespace WebApplication1
+namespace Proyecto
 {
     public class Global : HttpApplication
     {
