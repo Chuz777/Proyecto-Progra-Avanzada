@@ -1,5 +1,4 @@
 ﻿@model Proyecto.Models.DTOs.CreateVehiculoDTO
-
 @{
     ViewBag.Title = "Agregar Vehículo";
 }
@@ -13,45 +12,63 @@
     @using (Html.BeginForm())
     {
         @Html.AntiForgeryToken()
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.ValidationSummary(false, "", new { @class = "text-danger" })
 
         <div class="form-grid">
-            <div class="form-group full">
+            <!-- Fila 1: Marca y Modelo -->
+            <div class="form-group">
+                <label>Marca</label>
+                @Html.TextBoxFor(m => m.Marca)
+                @Html.ValidationMessageFor(m => m.Marca, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group">
                 <label>Modelo</label>
                 @Html.TextBoxFor(m => m.Modelo)
                 @Html.ValidationMessageFor(m => m.Modelo, "", new { @class = "text-danger" })
             </div>
 
+            <!-- Fila 2: VIN y Precio -->
             <div class="form-group">
-                <label>Precio</label>
-                @Html.TextBoxFor(m => m.Precio)
-                @Html.ValidationMessageFor(m => m.Precio, "", new { @class = "text-danger" })
+                <label>VIN</label>
+                @Html.TextBoxFor(m => m.VIN)
+                @Html.ValidationMessageFor(m => m.VIN, "", new { @class = "text-danger" })
             </div>
 
             <div class="form-group">
+                <label>Precio</label>
+                @Html.TextBoxFor(m => m.Precio, new { type = "number", step = "any" })
+                @Html.ValidationMessageFor(m => m.Precio, "", new { @class = "text-danger" })
+            </div>
+
+            <!-- Fila 3: Ruta de Imagen (Full) -->
+            <div class="form-group full">
                 <label>Ruta de la Imagen</label>
                 @Html.TextBoxFor(m => m.ImagenUrl)
                 @Html.ValidationMessageFor(m => m.ImagenUrl, "", new { @class = "text-danger" })
             </div>
 
+            <!-- Fila 4: Categoría y Sucursal -->
             <div class="form-group">
                 <label>Categoría</label>
-                @Html.DropDownList("CategoriaId", null, "— Selecciona —")
+                @Html.DropDownListFor(m => m.CategoriaId, (SelectList)ViewBag.CategoriaId, "— Selecciona —")
                 @Html.ValidationMessageFor(m => m.CategoriaId, "", new { @class = "text-danger" })
             </div>
 
             <div class="form-group">
                 <label>Sucursal</label>
-                @Html.DropDownList("SucursalId", null, "— Selecciona —")
+                @Html.DropDownListFor(m => m.SucursalId, (SelectList)ViewBag.SucursalId, "— Selecciona —")
                 @Html.ValidationMessageFor(m => m.SucursalId, "", new { @class = "text-danger" })
             </div>
 
+            <!-- Fila 5: Descripción -->
             <div class="form-group full">
                 <label>Descripción</label>
                 @Html.TextAreaFor(m => m.Descripcion)
                 @Html.ValidationMessageFor(m => m.Descripcion, "", new { @class = "text-danger" })
             </div>
 
+            <!-- Botones -->
             <div class="form-group full">
                 <button type="submit" class="boton btn-primary">Guardar Vehículo</button>
                 <a class="boton btn-secondary" href="@Url.Action("Index")">Cancelar</a>

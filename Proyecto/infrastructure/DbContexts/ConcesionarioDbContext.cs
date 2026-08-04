@@ -10,7 +10,7 @@ namespace Proyecto.infrastructure.DbContexts
     public class ConcesionarioDbContext : DbContext
     {
         // Pasa la cadena de conexión del Web.config
-        public ConcesionarioDbContext() : base("ConcesionarioConnection")
+        public ConcesionarioDbContext() : base("ConcesionarioDbContext")
         {
             this.Configuration.LazyLoadingEnabled = true;
         }

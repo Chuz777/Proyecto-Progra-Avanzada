@@ -157,6 +157,10 @@
     <Compile Include="Migrations\202607240426471_InicializacionDB.Designer.cs">
       <DependentUpon>202607240426471_InicializacionDB.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202608040405467_AjusteTablas.cs" />
+    <Compile Include="Migrations\202608040405467_AjusteTablas.Designer.cs">
+      <DependentUpon>202608040405467_AjusteTablas.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\DTOs\CreateVehiculoDTO.cs" />
     <Compile Include="Models\DTOs\VehiculoDTO.cs" />
@@ -196,6 +200,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202607240426471_InicializacionDB.resx">
       <DependentUpon>202607240426471_InicializacionDB.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202608040405467_AjusteTablas.resx">
+      <DependentUpon>202608040405467_AjusteTablas.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

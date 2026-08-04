@@ -3,85 +3,132 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Proyecto.infrastructure.DbContexts;
+using Proyecto.infrastructure.Services;
+using Proyecto.Models.DTOs;
 
 namespace Proyecto.Controllers
 {
     public class HomeAutosController : BaseController
     {
+        private readonly IVehiculoService _vehiculoService;
+        private readonly ConcesionarioDbContext _db;
+
+        public HomeAutosController()
+        {
+            _vehiculoService = new VehiculoService();
+            _db = new ConcesionarioDbContext();
+        }
+
         // GET: HomeAutos
         public ActionResult Index()
         {
-            return View();
+            var vehiculos = _vehiculoService.ObtenerTodos();
+            return View(vehiculos ?? new List<VehiculoDTO>());
         }
 
         // GET: HomeAutos/Details/5
-      public ActionResult Create()
-{
-    ViewBag.CategoriaId = new SelectList(new List<SelectListItem>());
-    ViewBag.SucursalId = new SelectList(new List<SelectListItem>());
-    return View();
-}
+        public ActionResult Details(int id)
+        {
+            var vehiculo = _vehiculoService.ObtenerPorId(id);
+            if (vehiculo == null)
+            {
+                return HttpNotFound();
+            }
+            return View(vehiculo);
+        }
+
         // GET: HomeAutos/Create
-        
+        public ActionResult Create()
+        {
+            CargarSelectLists();
+            return View();
+        }
 
         // POST: HomeAutos/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        [ValidateAntiForgeryToken]
+        public ActionResult Create(CreateVehiculoDTO dto)
         {
-            try
+            if (ModelState.IsValid)
             {
-                // TODO: Add insert logic here
+                var resultado = _vehiculoService.CrearVehiculo(dto);
+                if (resultado != null && resultado.Success)
+                {
+                    return RedirectToAction("Index");
+                }
 
-                return RedirectToAction("Index");
+                ModelState.AddModelError("", "Error al guardar el vehículo.");
             }
-            catch
-            {
-                return View();
-            }
+
+            CargarSelectLists(dto.CategoriaId, dto.SucursalId);
+            return View(dto);
         }
 
         // GET: HomeAutos/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            var vehiculo = _vehiculoService.ObtenerPorId(id);
+            if (vehiculo == null)
+            {
+                return HttpNotFound();
+            }
+
+            CargarSelectLists(vehiculo.CategoriaId, vehiculo.SucursalId);
+            return View(vehiculo);
         }
 
         // POST: HomeAutos/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(VehiculoDTO dto)
         {
-            try
+            if (ModelState.IsValid)
             {
-                // TODO: Add update logic here
+                var resultado = _vehiculoService.ActualizarVehiculo(dto);
+                if (resultado != null && resultado.Success)
+                {
+                    return RedirectToAction("Index");
+                }
 
-                return RedirectToAction("Index");
+                ModelState.AddModelError("", "Error al actualizar el vehículo.");
             }
-            catch
-            {
-                return View();
-            }
+
+            CargarSelectLists(dto.CategoriaId, dto.SucursalId);
+            return View(dto);
         }
 
         // GET: HomeAutos/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            var vehiculo = _vehiculoService.ObtenerPorId(id);
+            if (vehiculo == null)
+            {
+                return HttpNotFound();
+            }
+            return View(vehiculo);
         }
 
         // POST: HomeAutos/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(int id)
         {
-            try
+            var resultado = _vehiculoService.EliminarVehiculo(id);
+            if (resultado != null && resultado.Success)
             {
-                // TODO: Add delete logic here
-
                 return RedirectToAction("Index");
             }
-            catch
-            {
-                return View();
-            }
+
+            TempData["Error"] = "Error al eliminar el vehículo.";
+            return RedirectToAction("Index");
+        }
+
+
+        private void CargarSelectLists(int? categoriaId = null, int? sucursalId = null)
+        {
+            ViewBag.CategoriaId = new SelectList(_db.Categorias.ToList(), "Id", "Nombre", categoriaId);
+            ViewBag.SucursalId = new SelectList(_db.Sucursales.ToList(), "Id", "Nombre", sucursalId);
         }
     }
 }

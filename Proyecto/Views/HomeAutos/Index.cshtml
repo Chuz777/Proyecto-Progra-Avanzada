@@ -15,7 +15,7 @@
         + Agregar Vehículo
     </a>
 
-    @if (!Model.Any())
+    @if (Model == null || !Model.Any())
     {
         <p style="color:#7a7f8e;">Todavía no hay vehículos registrados.</p>
     }
@@ -47,5 +47,4 @@
             }
         </div>
     }
-
 </div>
