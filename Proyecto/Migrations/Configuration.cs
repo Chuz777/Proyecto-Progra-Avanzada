@@ -21,7 +21,7 @@ namespace Proyecto.Migrations
                 new Categoria { Nombre = "Sedán" },
                 new Categoria { Nombre = "SUV" },
                 new Categoria { Nombre = "Pick-up" },
-                new Categoria { Nombre = "Hatchback" }
+                new Categoria { Nombre = "Moto" }
             );
 
             context.Sucursales.AddOrUpdate(
