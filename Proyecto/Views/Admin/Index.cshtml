@@ -1,0 +1,37 @@
+﻿@{
+    ViewBag.Title = "Panel Administrador";
+}
+
+<div class="page-header">
+    <span class="label">Administrador</span>
+    <h2>Panel de Control</h2>
+</div>
+
+<div class="page-content">
+    <div class="feature-grid">
+        <a class="feature-card" href="@Url.Action("Index", "Autos")">
+            <h3>Autos</h3>
+            <p>Gestionar inventario de autos.</p>
+        </a>
+        <a class="feature-card" href="@Url.Action("Index", "Motos")">
+            <h3>Motos</h3>
+            <p>Gestionar inventario de motos.</p>
+        </a>
+        <a class="feature-card" href="@Url.Action("Index", "Sucursales")">
+            <h3>Sucursales</h3>
+            <p>Gestionar sucursales del concesionario.</p>
+        </a>
+        <a class="feature-card" href="#" style="opacity:.5; cursor:default;">
+            <h3>Reservas</h3>
+            <p>Próximamente.</p>
+        </a>
+        <a class="feature-card" href="#" style="opacity:.5; cursor:default;">
+            <h3>Cotizaciones</h3>
+            <p>Próximamente.</p>
+        </a>
+        <a class="feature-card" href="#" style="opacity:.5; cursor:default;">
+            <h3>Usuarios</h3>
+            <p>Próximamente.</p>
+        </a>
+    </div>
+</div>

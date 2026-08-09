@@ -1,0 +1,48 @@
+﻿@model IEnumerable<Proyecto.Models.Entities.Sucursal>
+
+@{
+    ViewBag.Title = "Sucursales";
+}
+
+<div class="page-header">
+    <span class="label">Concesionario</span>
+    <h2>Sucursales</h2>
+</div>
+
+<div class="page-content">
+
+    @if (TempData["Error"] != null)
+    {
+        <p style="color:#e8372a; margin-bottom:1rem;">@TempData["Error"]</p>
+    }
+
+    <a class="boton btn-primary" href="@Url.Action("Create")" style="margin-bottom:1.5rem; display:inline-block;">
+        + Agregar Sucursal
+    </a>
+
+    @if (Model == null || !Model.Any())
+    {
+        <p style="color:#7a7f8e;">Todavía no hay sucursales registradas.</p>
+    }
+    else
+    {
+        <div class="grid-vehiculos">
+            @foreach (var s in Model)
+            {
+                <div class="card-vehiculo">
+                    <div class="card-body">
+                        <h3>@s.Nombre</h3>
+                        <span class="descripcion">@s.Direccion</span>
+                        <span class="descripcion">Tel: @s.Telefono</span>
+
+                        <div class="card-actions">
+                            <a class="boton btn-secondary" href="@Url.Action("Details", new { id = s.Id })">Ver</a>
+                            <a class="boton btn-secondary" href="@Url.Action("Edit", new { id = s.Id })">Editar</a>
+                            <a class="boton btn-danger" href="@Url.Action("Delete", new { id = s.Id })">Eliminar</a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+</div>

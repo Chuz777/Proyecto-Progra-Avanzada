@@ -1,0 +1,33 @@
+﻿@model Proyecto.Models.DTOs.VehiculoDTO
+
+@{
+    ViewBag.Title = "Detalle del Vehículo";
+}
+
+<div class="page-header">
+    <span class="label">Ficha</span>
+    <h2>@Model.Modelo</h2>
+</div>
+
+<div class="page-content">
+    <div class="card-vehiculo" style="max-width:500px;">
+        @if (!string.IsNullOrEmpty(Model.ImagenUrl))
+        {
+            <img src="@Model.ImagenUrl" alt="@Model.Modelo" style="height:260px;" />
+        }
+        <div class="card-body">
+            <span class="badge @(Model.Estado == "Disponible" ? "disponible" : Model.Estado == "Reservado" ? "reservado" : "vendido")">
+                @Model.Estado
+            </span>
+            <span class="precio" style="font-size:1.4rem;">₡@Model.Precio.ToString("N0")</span>
+            <p class="descripcion">@Model.Descripcion</p>
+            <p style="color:#7a7f8e; font-size:.85rem;">Marca: @Model.Marca — Año: @Model.Anio</p>
+            <p style="color:#7a7f8e; font-size:.85rem;">VIN: @Model.VIN</p>
+
+            <div class="card-actions">
+                <a class="boton btn-secondary" href="@Url.Action("Edit", new { id = Model.Id })">Editar</a>
+                <a class="boton btn-secondary" href="@Url.Action("Index")">Volver al Inventario</a>
+            </div>
+        </div>
+    </div>
+</div>

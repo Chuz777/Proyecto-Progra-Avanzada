@@ -35,6 +35,28 @@ namespace Proyecto.infrastructure.Services
             }).ToList();
         }
 
+        public IEnumerable<VehiculoDTO> ObtenerPorTipo(bool esMoto)
+        {
+            var query = esMoto
+                ? _db.Vehiculos.Where(v => v.Categoria.Nombre == "Moto")
+                : _db.Vehiculos.Where(v => v.Categoria.Nombre != "Moto");
+
+            return query.Select(v => new VehiculoDTO
+            {
+                Id = v.Id,
+                Marca = v.Marca,
+                Modelo = v.Modelo,
+                Anio = v.Anio,
+                VIN = v.VIN,
+                Precio = v.Precio,
+                ImagenUrl = v.ImagenUrl,
+                Descripcion = v.Descripcion,
+                Estado = v.Estado,
+                CategoriaId = v.CategoriaId,
+                SucursalId = v.SucursalId
+            }).ToList();
+        }
+
         public VehiculoDTO ObtenerPorId(int id)
         {
             var vehiculo = _db.Vehiculos.Find(id);

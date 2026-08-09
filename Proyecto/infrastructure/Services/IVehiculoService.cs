@@ -7,6 +7,7 @@ namespace Proyecto.infrastructure.Services
     public interface IVehiculoService
     {
         IEnumerable<VehiculoDTO> ObtenerTodos();
+        IEnumerable<VehiculoDTO> ObtenerPorTipo(bool esMoto);
         VehiculoDTO ObtenerPorId(int id);
         OperationResult CrearVehiculo(CreateVehiculoDTO dto);
         OperationResult ActualizarVehiculo(VehiculoDTO dto);

@@ -1,0 +1,29 @@
+﻿@{
+    ViewBag.Title = "Panel Vendedor";
+}
+
+<div class="page-header">
+    <span class="label">Vendedor</span>
+    <h2>Panel de Ventas</h2>
+</div>
+
+<div class="page-content">
+    <div class="feature-grid">
+        <a class="feature-card" href="@Url.Action("Index", "Autos")">
+            <h3>Autos</h3>
+            <p>Ver inventario de autos disponible.</p>
+        </a>
+        <a class="feature-card" href="@Url.Action("Index", "Motos")">
+            <h3>Motos</h3>
+            <p>Ver inventario de motos disponible.</p>
+        </a>
+        <a class="feature-card" href="#" style="opacity:.5; cursor:default;">
+            <h3>Reservas de visita</h3>
+            <p>Próximamente.</p>
+        </a>
+        <a class="feature-card" href="#" style="opacity:.5; cursor:default;">
+            <h3>Cotizaciones</h3>
+            <p>Próximamente.</p>
+        </a>
+    </div>
+</div>

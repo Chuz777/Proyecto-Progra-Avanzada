@@ -1,0 +1,30 @@
+﻿@{
+    ViewBag.Title = "Inicio";
+}
+
+<section class="hero">
+    <span class="label">Concesionario Digital · Costa Rica</span>
+    <h1>Encontrá tu próximo vehículo</h1>
+    <p>Autos, motos y todo el inventario de nuestras sucursales, en un solo lugar.</p>
+    <div class="hero-actions">
+        <a class="boton btn-primary" href="@Url.Action("Index", "Autos")">Ver Autos</a>
+        <a class="boton btn-secondary" href="@Url.Action("Index", "Motos")">Ver Motos</a>
+    </div>
+</section>
+
+<div class="page-content">
+    <div class="feature-grid">
+        <a class="feature-card" href="@Url.Action("Index", "Autos")">
+            <h3>Autos</h3>
+            <p>Sedanes, SUVs y pick-ups disponibles en inventario.</p>
+        </a>
+        <a class="feature-card" href="@Url.Action("Index", "Motos")">
+            <h3>Motos</h3>
+            <p>Catálogo exclusivo de motocicletas.</p>
+        </a>
+        <a class="feature-card" href="@Url.Action("Index", "Sucursales")">
+            <h3>Sucursales</h3>
+            <p>Ubicaciones y contacto de cada sucursal.</p>
+        </a>
+    </div>
+</div>

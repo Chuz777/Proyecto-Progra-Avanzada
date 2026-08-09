@@ -1,0 +1,24 @@
+﻿@model Proyecto.Models.Entities.Sucursal
+
+@{
+    ViewBag.Title = "Detalle de la Sucursal";
+}
+
+<div class="page-header">
+    <span class="label">Ficha</span>
+    <h2>@Model.Nombre</h2>
+</div>
+
+<div class="page-content">
+    <div class="card-vehiculo" style="max-width:500px;">
+        <div class="card-body">
+            <p class="descripcion">Dirección: @Model.Direccion</p>
+            <p class="descripcion">Teléfono: @Model.Telefono</p>
+
+            <div class="card-actions">
+                <a class="boton btn-secondary" href="@Url.Action("Edit", new { id = Model.Id })">Editar</a>
+                <a class="boton btn-secondary" href="@Url.Action("Index")">Volver a Sucursales</a>
+            </div>
+        </div>
+    </div>
+</div>
