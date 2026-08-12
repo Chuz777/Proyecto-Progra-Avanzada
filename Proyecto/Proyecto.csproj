@@ -150,6 +150,7 @@
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Account\AccesoDenegado.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
+    <Content Include="Views\Inventario\Inventario.cshtml" />
     <None Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Sucursales\Index.cshtml" />
     <Content Include="Views\Sucursales\Create.cshtml" />
@@ -160,6 +161,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="Common\OperationResult.cs" />
     <Compile Include="Controllers\AccountController.cs.cs" />
+    <Compile Include="Controllers\InventarioController.cs" />
     <Compile Include="Controllers\VehiculosController.cs" />
     <Compile Include="Controllers\VendedorController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
