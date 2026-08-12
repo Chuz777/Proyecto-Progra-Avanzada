@@ -43,12 +43,11 @@ nav {
 	border-bottom: 1px solid var(--border);
 	display: flex;
 	align-items: center;
-	justify-content: space-between;
-	padding: 0 2rem;
+	padding: 0 2.5rem;
 	position: sticky;
 	top: 0;
 	z-index: 100;
-	height: 60px;
+	height: 68px;
 }
 
 .nav-brand {
@@ -64,16 +63,18 @@ nav {
 
 .nav-links {
 	display: flex;
-	gap: .25rem;
+	gap: .4rem;
+	margin-left: 3rem;
+	flex: 1;
 }
 
 	.nav-links a {
 		font-family: var(--font-mono);
-		font-size: .72rem;
+		font-size: .88rem;
 		text-transform: uppercase;
 		letter-spacing: 1px;
 		color: var(--muted);
-		padding: .45rem .85rem;
+		padding: .55rem 1rem;
 		border-radius: 4px;
 		border: 1px solid transparent;
 		transition: all .2s;
@@ -85,6 +86,45 @@ nav {
 			border-color: var(--border);
 			background: rgba(255, 255, 255, .04);
 		}
+
+.nav-user {
+	display: flex;
+	align-items: center;
+	gap: 1rem;
+}
+
+	.nav-user .nav-username {
+		font-family: var(--font-mono);
+		font-size: 1rem;
+		font-weight: 600;
+		color: var(--white);
+		letter-spacing: .5px;
+	}
+
+	.nav-user a {
+		font-family: var(--font-mono);
+		font-size: .85rem;
+		text-transform: uppercase;
+		letter-spacing: 1px;
+		color: var(--muted);
+		padding: .5rem .9rem;
+		transition: .2s;
+	}
+
+		.nav-user a:hover {
+			color: var(--white);
+		}
+
+		.nav-user a.nav-salir {
+			border: 1px solid var(--accent);
+			border-radius: 6px;
+			color: var(--accent);
+		}
+
+			.nav-user a.nav-salir:hover {
+				background: rgba(232, 55, 42, .1);
+				color: var(--accent);
+			}
 
 /* PAGE HEADER */
 .page-header {
@@ -121,8 +161,9 @@ nav {
 /* GRID DE TARJETAS (inventario) */
 .grid-vehiculos {
 	display: grid;
-	grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+	grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
 	gap: 1.5rem;
+	align-items: stretch;
 }
 
 .card-vehiculo {
@@ -132,37 +173,56 @@ nav {
 	overflow: hidden;
 	display: flex;
 	flex-direction: column;
+	min-height: 300px;
+	transition: transform .2s, border-color .2s, box-shadow .2s;
 }
 
+	.card-vehiculo:hover {
+		transform: translateY(-3px);
+		border-color: #3a3e48;
+		box-shadow: 0 8px 25px rgba(0, 0, 0, .35);
+	}
+
 	.card-vehiculo img {
-		height: 160px;
+		width: 100%;
+		height: 190px;
 		object-fit: cover;
 		background: #000;
+		border-bottom: 1px solid var(--border);
 	}
 
 .card-body {
-	padding: 1rem;
+	padding: 1.25rem;
 	display: flex;
 	flex-direction: column;
-	gap: .4rem;
+	gap: .6rem;
 	flex: 1;
 }
 
 	.card-body h3 {
 		font-family: var(--font-display);
-		font-size: 1.3rem;
-		letter-spacing: .5px;
+		font-size: 1.6rem;
+		letter-spacing: .7px;
+		margin-top: .2rem;
 	}
 
 	.card-body .precio {
 		color: var(--accent2);
 		font-family: var(--font-mono);
+		font-size: 1.15rem;
 		font-weight: 700;
+		letter-spacing: .5px;
 	}
 
 	.card-body .descripcion {
 		color: var(--muted);
-		font-size: .85rem;
+		font-size: .88rem;
+		line-height: 1.5;
+		margin-top: .2rem;
+		display: -webkit-box;
+		-webkit-line-clamp: 3;
+		-webkit-box-orient: vertical;
+		overflow: hidden;
 	}
 
 .badge {
@@ -192,11 +252,18 @@ nav {
 	}
 
 .card-actions {
-	display: flex;
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr;
 	gap: .5rem;
 	margin-top: auto;
-	padding-top: .5rem;
+	padding-top: 1rem;
 }
+
+	.card-actions .boton {
+		width: 100%;
+		padding: .65rem .5rem;
+		font-size: .68rem;
+	}
 
 /* FORMULARIOS */
 .form-grid {
@@ -291,6 +358,55 @@ nav {
 		background: rgba(232, 55, 42, .1);
 	}
 
+/* TABLAS ADMIN */
+.tabla-admin {
+	width: 100%;
+	border-collapse: collapse;
+	background: var(--card);
+	border: 1px solid var(--border);
+	border-radius: 10px;
+	overflow: hidden;
+}
+
+	.tabla-admin th,
+	.tabla-admin td {
+		padding: .8rem 1rem;
+		text-align: left;
+		border-bottom: 1px solid var(--border);
+		font-size: .88rem;
+	}
+
+	.tabla-admin th {
+		font-family: var(--font-mono);
+		font-size: .68rem;
+		text-transform: uppercase;
+		letter-spacing: 1px;
+		color: var(--muted);
+		background: rgba(255, 255, 255, .02);
+	}
+
+	.tabla-admin tbody tr:last-child td {
+		border-bottom: none;
+	}
+
+	.tabla-admin tbody tr:hover {
+		background: rgba(255, 255, 255, .02);
+	}
+
+	.tabla-admin select {
+		background: #252525;
+		border: 1px solid var(--border);
+		color: var(--white);
+		padding: .4rem .6rem;
+		border-radius: 6px;
+		font-family: var(--font-body);
+		font-size: .82rem;
+	}
+
+.form-inline-fila {
+	display: inline-block;
+}
+
 footer {
 	text-align: center;
 	padding: 1.5rem;
@@ -340,34 +456,37 @@ footer {
 
 /* FEATURE GRID (landing) */
 .feature-grid {
-	display: grid;
-	grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-	gap: 1.5rem;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	gap: 1.75rem;
 	margin-bottom: 2rem;
 }
 
 .feature-card {
 	background: var(--card);
 	border: 1px solid var(--border);
-	border-radius: 10px;
-	padding: 2rem 1.5rem;
+	border-radius: 14px;
+	padding: 2.75rem 2rem;
 	text-align: center;
 	transition: .2s;
+	flex: 0 1 260px;
+	max-width: 300px;
 }
 
 	.feature-card:hover {
 		border-color: var(--accent);
-		transform: translateY(-2px);
+		transform: translateY(-4px);
 	}
 
 	.feature-card h3 {
 		font-family: var(--font-display);
-		font-size: 1.4rem;
+		font-size: 1.7rem;
 		letter-spacing: .5px;
-		margin-bottom: .4rem;
+		margin-bottom: .6rem;
 	}
 
 	.feature-card p {
 		color: var(--muted);
-		font-size: .85rem;
+		font-size: .95rem;
 	}

@@ -145,6 +145,7 @@
     <Content Include="Views\Vehiculos\Edit.cshtml" />
     <Content Include="Views\Motos\Index.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
+    <Content Include="Views\Admin\Usuarios.cshtml" />
     <Content Include="Views\Vendedor\Index.cshtml" />
     <Content Include="Views\Autos\Index.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
@@ -176,6 +177,8 @@
     <Compile Include="infrastructure\DbContexts\ConcesionarioDbContext.cs" />
     <Compile Include="infrastructure\Services\IVehiculoService.cs" />
     <Compile Include="infrastructure\Services\VehiculoService.cs" />
+    <Compile Include="infrastructure\Services\IUsuarioService.cs" />
+    <Compile Include="infrastructure\Services\UsuarioService.cs" />
     <Compile Include="Migrations\202607240426471_InicializacionDB.cs" />
     <Compile Include="Migrations\202607240426471_InicializacionDB.Designer.cs">
       <DependentUpon>202607240426471_InicializacionDB.cs</DependentUpon>
@@ -187,6 +190,7 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\DTOs\CreateVehiculoDTO.cs" />
     <Compile Include="Models\DTOs\VehiculoDTO.cs" />
+    <Compile Include="Models\DTOs\UsuarioDTO.cs" />
     <Compile Include="Models\Entities\Usuario.cs" />
     <Content Include="Web.config" />
   </ItemGroup>

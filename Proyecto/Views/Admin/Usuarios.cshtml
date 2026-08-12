@@ -1,0 +1,73 @@
+﻿@model IEnumerable<Proyecto.Models.DTOs.UsuarioDTO>
+
+@{
+    ViewBag.Title = "Usuarios";
+    var roles = (string[])ViewBag.Roles;
+}
+
+<div class="page-header">
+    <span class="label">Administrador</span>
+    <h2>Cuentas de Usuario</h2>
+</div>
+
+<div class="page-content">
+
+    @if (TempData["Error"] != null)
+    {
+        <p class="text-danger" style="margin-bottom:1rem;">@TempData["Error"]</p>
+    }
+
+    @if (Model == null || !Model.Any())
+    {
+        <p style="color:#7a7f8e;">No hay cuentas registradas.</p>
+    }
+    else
+    {
+        <table class="tabla-admin">
+            <thead>
+                <tr>
+                    <th>Usuario</th>
+                    <th>Email</th>
+                    <th>Rol</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var u in Model)
+                {
+                    <tr>
+                        <td>@u.Username</td>
+                        <td>@u.Email</td>
+                        <td>
+                            <form method="post" action="@Url.Action("CambiarRol", "Admin")" class="form-inline-fila">
+                                @Html.AntiForgeryToken()
+                                <input type="hidden" name="id" value="@u.Id" />
+                                <select name="nuevoRol" onchange="this.form.submit()">
+                                    @foreach (var rol in roles)
+                                    {
+                                        if (rol == u.Rol)
+                                        {
+                                            <option value="@rol" selected="selected">@rol</option>
+                                        }
+                                        else
+                                        {
+                                            <option value="@rol">@rol</option>
+                                        }
+                                    }
+                                </select>
+                            </form>
+                        </td>
+                        <td>
+                            <form method="post" action="@Url.Action("EliminarUsuario", "Admin")"
+                                  onsubmit="return confirm('¿Eliminar la cuenta de @u.Username? Esta acción no se puede deshacer.');">
+                                @Html.AntiForgeryToken()
+                                <input type="hidden" name="id" value="@u.Id" />
+                                <button type="submit" class="boton btn-danger">Eliminar</button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+</div>
