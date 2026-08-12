@@ -1,4 +1,4 @@
-﻿@model Proyecto.Models.Entities.Vehiculo
+﻿@model Proyecto.Models.DTOs.VehiculoDTO
 
 @{
     ViewBag.Title = "Eliminar Vehículo";
@@ -31,6 +31,6 @@
         @Html.AntiForgeryToken()
         @Html.HiddenFor(m => m.Id)
         <button type="submit" class="boton btn-danger">Sí, Eliminar</button>
-        <a class="boton btn-secondary" href="@Url.Action("Index")">Cancelar</a>
+        <a class="boton btn-secondary" href="@Url.Action("Index", "Autos")">Cancelar</a>
     }
 </div>

@@ -14,6 +14,28 @@
             <a href="@Url.Action("Index", "Autos")">Autos</a>
             <a href="@Url.Action("Index", "Motos")">Motos</a>
             <a href="@Url.Action("Index", "Sucursales")">Sucursales</a>
+
+            @if (ViewBag.RolActual == "Admin")
+            {
+                <a href="@Url.Action("Index", "Admin")">Admin</a>
+            }
+            @if (ViewBag.RolActual == "Admin" || ViewBag.RolActual == "Asesor")
+            {
+                <a href="@Url.Action("Index", "Vendedor")">Vendedor</a>
+            }
+
+            @if (ViewBag.UsuarioActual != null)
+            {
+                <span style="color:#7a7f8e; font-family:var(--font-mono); font-size:.72rem; padding:.45rem .5rem;">
+                    @ViewBag.UsuarioActual
+                </span>
+                <a href="@Url.Action("Logout", "Account")">Salir</a>
+            }
+            else
+            {
+                <a href="@Url.Action("Register", "Account")">Registrarse</a>
+                <a href="@Url.Action("Login", "Account")">Ingresar</a>
+            }
         </div>
     </nav>
 

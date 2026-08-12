@@ -1,0 +1,33 @@
+﻿@{
+    ViewBag.Title = "Iniciar Sesión";
+}
+
+<div class="page-header">
+    <span class="label">Concesionario</span>
+    <h2>Iniciar Sesión</h2>
+</div>
+
+<div class="page-content">
+    @using (Html.BeginForm("Login", "Account", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        @Html.Hidden("returnUrl", ViewBag.ReturnUrl as string)
+        @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+
+        <div class="form-grid" style="max-width:400px;">
+            <div class="form-group full">
+                <label>Usuario</label>
+                <input type="text" name="username" autofocus />
+            </div>
+
+            <div class="form-group full">
+                <label>Contraseña</label>
+                <input type="password" name="password" />
+            </div>
+
+            <div class="form-group full">
+                <button type="submit" class="boton btn-primary">Entrar</button>
+            </div>
+        </div>
+    }
+</div>

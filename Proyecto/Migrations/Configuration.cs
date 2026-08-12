@@ -30,6 +30,12 @@ namespace Proyecto.Migrations
                 new Sucursal { Nombre = "Sucursal Este", Direccion = "San Pedro", Telefono = "2222-1111" }
             );
 
+            context.Usuarios.AddOrUpdate(
+                u => u.Username,
+                new Usuario { Username = "admin", PasswordHash = Usuario.HashPassword("admin123"), Email = "admin@concesionario.cr", Rol = "Admin" },
+                new Usuario { Username = "vendedor", PasswordHash = Usuario.HashPassword("vendedor123"), Email = "vendedor@concesionario.cr", Rol = "Asesor" }
+            );
+
             context.SaveChanges();
         }
     }

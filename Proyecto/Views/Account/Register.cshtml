@@ -1,0 +1,43 @@
+﻿@{
+    ViewBag.Title = "Crear Cuenta";
+}
+
+<div class="page-header">
+    <span class="label">Concesionario</span>
+    <h2>Crear Cuenta</h2>
+</div>
+
+<div class="page-content">
+    @using (Html.BeginForm("Register", "Account", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+
+        <div class="form-grid" style="max-width:400px;">
+            <div class="form-group full">
+                <label>Usuario</label>
+                <input type="text" name="username" autofocus />
+            </div>
+
+            <div class="form-group full">
+                <label>Correo</label>
+                <input type="email" name="email" />
+            </div>
+
+            <div class="form-group full">
+                <label>Contraseña</label>
+                <input type="password" name="password" />
+            </div>
+
+            <div class="form-group full">
+                <label>Confirmar Contraseña</label>
+                <input type="password" name="confirmarPassword" />
+            </div>
+
+            <div class="form-group full">
+                <button type="submit" class="boton btn-primary">Crear Cuenta</button>
+                <a class="boton btn-secondary" href="@Url.Action("Login")">Ya tengo cuenta</a>
+            </div>
+        </div>
+    }
+</div>

@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using Proyecto.infrastructure.DbContexts;
 using Proyecto.infrastructure.Services;
@@ -9,25 +7,18 @@ using Proyecto.Models.DTOs;
 
 namespace Proyecto.Controllers
 {
-    public class HomeAutosController : BaseController
+    public class VehiculosController : BaseController
     {
         private readonly IVehiculoService _vehiculoService;
         private readonly ConcesionarioDbContext _db;
 
-        public HomeAutosController()
+        public VehiculosController()
         {
             _vehiculoService = new VehiculoService();
             _db = new ConcesionarioDbContext();
         }
 
-        // GET: HomeAutos
-        public ActionResult Index()
-        {
-            var vehiculos = _vehiculoService.ObtenerTodos();
-            return View(vehiculos ?? new List<VehiculoDTO>());
-        }
-
-        // GET: HomeAutos/Details/5
+        // GET: Vehiculos/Details/5
         public ActionResult Details(int id)
         {
             var vehiculo = _vehiculoService.ObtenerPorId(id);
@@ -38,14 +29,14 @@ namespace Proyecto.Controllers
             return View(vehiculo);
         }
 
-        // GET: HomeAutos/Create
+        // GET: Vehiculos/Create
         public ActionResult Create()
         {
             CargarSelectLists();
             return View();
         }
 
-        // POST: HomeAutos/Create
+        // POST: Vehiculos/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(CreateVehiculoDTO dto)
@@ -55,7 +46,7 @@ namespace Proyecto.Controllers
                 var resultado = _vehiculoService.CrearVehiculo(dto);
                 if (resultado != null && resultado.Success)
                 {
-                    return RedirectToAction("Index");
+                    return RedirectToAction("Index", DestinoSegunCategoria(dto.CategoriaId));
                 }
 
                 ModelState.AddModelError("", "Error al guardar el vehículo.");
@@ -65,7 +56,7 @@ namespace Proyecto.Controllers
             return View(dto);
         }
 
-        // GET: HomeAutos/Edit/5
+        // GET: Vehiculos/Edit
         public ActionResult Edit(int id)
         {
             var vehiculo = _vehiculoService.ObtenerPorId(id);
@@ -78,7 +69,7 @@ namespace Proyecto.Controllers
             return View(vehiculo);
         }
 
-        // POST: HomeAutos/Edit/5
+        // POST: Vehiculos/Edit
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(VehiculoDTO dto)
@@ -88,7 +79,7 @@ namespace Proyecto.Controllers
                 var resultado = _vehiculoService.ActualizarVehiculo(dto);
                 if (resultado != null && resultado.Success)
                 {
-                    return RedirectToAction("Index");
+                    return RedirectToAction("Index", DestinoSegunCategoria(dto.CategoriaId));
                 }
 
                 ModelState.AddModelError("", "Error al actualizar el vehículo.");
@@ -98,7 +89,7 @@ namespace Proyecto.Controllers
             return View(dto);
         }
 
-        // GET: HomeAutos/Delete/5
+        // GET: Vehiculos/Delete
         public ActionResult Delete(int id)
         {
             var vehiculo = _vehiculoService.ObtenerPorId(id);
@@ -109,21 +100,29 @@ namespace Proyecto.Controllers
             return View(vehiculo);
         }
 
-        // POST: HomeAutos/Delete/5
+        // POST: Vehiculos/Delete
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
+            var vehiculo = _vehiculoService.ObtenerPorId(id);
+            var destino = vehiculo != null ? DestinoSegunCategoria(vehiculo.CategoriaId) : "Autos";
+
             var resultado = _vehiculoService.EliminarVehiculo(id);
-            if (resultado != null && resultado.Success)
+            if (resultado == null || !resultado.Success)
             {
-                return RedirectToAction("Index");
+                TempData["Error"] = "Error al eliminar el vehículo.";
             }
 
-            TempData["Error"] = "Error al eliminar el vehículo.";
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", destino);
         }
 
+        private string DestinoSegunCategoria(int categoriaId)
+        {
+            var categoria = _db.Categorias.Find(categoriaId);
+            bool esMoto = categoria != null && categoria.Nombre == "Moto";
+            return esMoto ? "Motos" : "Autos";
+        }
 
         private void CargarSelectLists(int? categoriaId = null, int? sucursalId = null)
         {
