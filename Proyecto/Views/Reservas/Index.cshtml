@@ -1,0 +1,59 @@
+﻿@model IEnumerable<Proyecto.Models.Entities.Vehiculo>
+@{
+    ViewBag.Title = "Reservar Cita";
+}
+
+<div class="page-header">
+    <span class="label">Concesionario</span>
+    <h2>Reservar Cita para Ver un Vehículo</h2>
+</div>
+
+<div class="page-content">
+    <p style="color: var(--muted); margin-bottom: 2rem;">
+        Selecciona un vehículo de nuestro inventario y reserva una cita para verlo en persona.
+    </p>
+
+    @if (Model != null && Model.Any())
+    {
+        <div class="grid-vehiculos">
+            @foreach (var v in Model)
+            {
+                <div class="card-vehiculo">
+                    @if (!string.IsNullOrEmpty(v.ImagenUrl))
+                    {
+                        <img src="@v.ImagenUrl" alt="@v.Modelo" />
+                    }
+
+                    <div class="card-body">
+                        <span class="badge @(v.Estado == "Disponible" ? "disponible" : v.Estado == "Reservado" ? "reservado" : "vendido")">
+                            @v.Estado
+                        </span>
+                        <h3>@v.Marca @v.Modelo</h3>
+                        <span class="precio">₡@v.Precio.ToString("N0")</span>
+                        <span class="descripcion">@v.Descripcion</span>
+
+                        <div class="card-actions">
+                            <a href="@Url.Action("Create", "Reservas", new { vehiculoId = v.Id })" class="boton btn-primary">
+                                📅 Cita
+                            </a>
+                            <a href="@Url.Action("Calcular", "Cotizador", new { vehiculoId = v.Id })" class="boton btn-secondary">
+                                📊 Cotizar
+                            </a>
+                            <a href="@Url.Action("Details", "Vehiculos", new { id = v.Id })" class="boton btn-secondary">
+                                📄 Detalles
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <div style="background: var(--card); border: 1px solid var(--accent); padding: 1.5rem; border-radius: 8px;">
+            <p style="color: var(--accent); margin: 0; font-family: var(--font-mono);">
+                <strong>⚠ No hay vehículos disponibles en este momento.</strong>
+            </p>
+        </div>
+    }
+</div>

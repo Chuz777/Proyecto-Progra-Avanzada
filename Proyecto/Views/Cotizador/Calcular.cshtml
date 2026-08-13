@@ -1,0 +1,103 @@
+﻿@model Proyecto.Models.ViewModels.CotizacionViewModel
+@{
+    ViewBag.Title = "Calculadora de Financiamiento";
+}
+
+<div class="page-header">
+    <span class="label">Simulador Financiero</span>
+    <h2>Cotizar @Model.Marca @Model.Modelo</h2>
+</div>
+
+<div class="page-content">
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; align-items: start;">
+
+        <div style="background: var(--card); border: 1px solid var(--border); border-radius: 10px; overflow: hidden;">
+            @if (!string.IsNullOrEmpty(Model.ImagenUrl))
+            {
+                <img src="@Model.ImagenUrl" alt="@Model.Marca @Model.Modelo" style="width: 100%; height: 260px; object-fit: cover; border-bottom: 1px solid var(--border);" />
+            }
+            <div style="padding: 1.5rem;">
+                <h3 style="font-family: var(--font-display); font-size: 2rem; letter-spacing: 1px; margin-bottom: .5rem;">@Model.Marca @Model.Modelo</h3>
+                <p style="font-family: var(--font-mono); color: var(--accent2); font-size: 1.4rem; font-weight: 700; margin-bottom: 1.5rem;">
+                    ₡@Model.PrecioVehiculo.ToString("N0")
+                </p>
+
+                <div style="background: rgba(255, 255, 255, 0.03); border: 1px solid var(--border); padding: 1.25rem; border-radius: 8px; text-align: center;">
+                    <span style="font-family: var(--font-mono); font-size: .75rem; text-transform: uppercase; color: var(--muted); letter-spacing: 1px; display: block; margin-bottom: .4rem;">Cuota Mensual Estimada</span>
+                    <span style="font-family: var(--font-mono); font-size: 2.2rem; color: #2ecc71; font-weight: 700; display: block;">
+                        ₡@Model.CuotaMensual.ToString("N0")
+                    </span>
+                    <span style="font-size: .75rem; color: var(--muted); margin-top: .4rem; display: block;">Tasa de interés de referencia: @Model.TasaAnual% anual</span>
+                </div>
+            </div>
+        </div>
+
+        <div style="background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 1.5rem;">
+            @using (Html.BeginForm("Calcular", "Cotizador", FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
+                @Html.HiddenFor(m => m.VehiculoId)
+                @Html.HiddenFor(m => m.Marca)
+                @Html.HiddenFor(m => m.Modelo)
+                @Html.HiddenFor(m => m.ImagenUrl)
+                @Html.HiddenFor(m => m.PrecioVehiculo)
+                @Html.HiddenFor(m => m.TasaAnual)
+
+                @Html.ValidationSummary(true, "", new { @class = "text-danger", style = "margin-bottom: 1rem;" })
+
+                <div class="form-group" style="margin-bottom: 1.2rem;">
+                    <label>Precio del Vehículo</label>
+                    <input type="text" value="₡@Model.PrecioVehiculo.ToString("N0")" disabled readonly style="opacity: 0.6; cursor: not-allowed;" />
+                </div>
+
+                <div class="form-group" style="margin-bottom: 1.2rem;">
+                    @Html.LabelFor(m => m.Prima)
+                    @Html.TextBoxFor(m => m.Prima, new { type = "number", step = "1000", @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.Prima, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="form-group" style="margin-bottom: 1.5rem;">
+                    @Html.LabelFor(m => m.PlazoMeses)
+                    @Html.DropDownListFor(m => m.PlazoMeses, new SelectList(new[]
+                    {
+                        new { Value = 12, Text = "12 Meses (1 Año)" },
+                        new { Value = 24, Text = "24 Meses (2 Años)" },
+                        new { Value = 36, Text = "36 Meses (3 Años)" },
+                        new { Value = 48, Text = "48 Meses (4 Años)" },
+                        new { Value = 60, Text = "60 Meses (5 Años)" },
+                        new { Value = 72, Text = "72 Meses (6 Años)" },
+                        new { Value = 84, Text = "84 Meses (7 Años)" }
+                    }, "Value", "Text", Model.PlazoMeses))
+                    @Html.ValidationMessageFor(m => m.PlazoMeses, "", new { @class = "text-danger" })
+                </div>
+
+                <div style="margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid var(--border);">
+                    <span style="font-family: var(--font-mono); color: var(--muted); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 1px; display: block; margin-bottom: 1rem;">
+                        Datos para Generar Comprobante
+                    </span>
+
+                    <div class="form-group" style="margin-bottom: 1rem;">
+                        <label>Nombre Completo</label>
+                        @Html.TextBoxFor(m => m.NombreCliente, new { placeholder = "Ingrese su nombre completo" })
+                        @Html.ValidationMessageFor(m => m.NombreCliente, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="form-group" style="margin-bottom: 1.5rem;">
+                        <label>Correo Electrónico</label>
+                        @Html.TextBoxFor(m => m.EmailCliente, new { type = "email", placeholder = "ejemplo@correo.com" })
+                        @Html.ValidationMessageFor(m => m.EmailCliente, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1.5rem;">
+                    <button type="submit" name="accion" value="recalcular" class="boton btn-secondary">
+                        🔄 Recalcular
+                    </button>
+                    <button type="submit" name="accion" value="guardar" class="boton btn-primary">
+                        📄 Guardar y Generar
+                    </button>
+                </div>
+            }
+        </div>
+    </div>
+</div>

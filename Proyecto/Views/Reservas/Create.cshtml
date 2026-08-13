@@ -1,0 +1,137 @@
+﻿@model Proyecto.Models.Entities.ReservaVisita
+@{
+    ViewBag.Title = "Reservar Cita";
+    var vehiculo = ViewBag.Vehiculo;
+}
+
+<div class="page-header">
+    <span class="label">Concesionario</span>
+    <h2>Reservar Cita</h2>
+</div>
+
+<div class="page-content">
+    @if (vehiculo != null)
+    {
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-bottom: 2rem;">
+            <!-- Columna Izquierda: Vehículo -->
+            <div>
+                @if (!string.IsNullOrEmpty(vehiculo.ImagenUrl))
+                {
+                    <img src="@vehiculo.ImagenUrl" alt="@vehiculo.Marca @vehiculo.Modelo" style="width: 100%; border-radius: 8px; margin-bottom: 1rem; border: 1px solid #333333; object-fit: cover;" />
+                }
+
+                <div style="background: #1a1a1a; padding: 1.5rem; border-radius: 8px; border: 1px solid #333333; color: #ffffff;">
+                    <h3 style="margin-top: 0; color: #ffffff;">@vehiculo.Marca @vehiculo.Modelo</h3>
+                    <p style="color: #a0a0a0; margin: 0.5rem 0;">
+                        <strong>Año:</strong> @vehiculo.Anio
+                    </p>
+                    <p style="color: #a0a0a0; margin: 0.5rem 0;">
+                        <strong>Descripción:</strong> @vehiculo.Descripcion
+                    </p>
+                    <p style="color: #52c41a; font-size: 1.4rem; font-weight: bold; margin: 1rem 0 0 0;">
+                        ₡@vehiculo.Precio.ToString("N0")
+                    </p>
+                </div>
+            </div>
+
+            <!-- Columna Derecha: Formulario -->
+            <div>
+                @using (Html.BeginForm("Create", "Reservas", FormMethod.Post))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.HiddenFor(m => m.VehiculoId)
+
+                    <div style="background: #1a1a1a; padding: 2rem; border-radius: 8px; border: 1px solid #333333; color: #ffffff;">
+                        <h4 style="margin-top: 0; color: #ffffff; border-bottom: 1px solid #2a2a2a; padding-bottom: 0.75rem; margin-bottom: 1.5rem;">
+                            Datos de Contacto
+                        </h4>
+
+                        <!-- Nombre -->
+                        <div style="margin-bottom: 1.5rem;">
+                            <label style="display: block; color: #ffffff; font-weight: bold; margin-bottom: 0.5rem;">
+                                Nombre Completo
+                            </label>
+                            <input type="text" name="NombreContacto" class="form-input" required placeholder="Tu nombre" style="width: 100%; padding: 0.75rem; background: #111111; color: #ffffff; border: 1px solid #333333; border-radius: 6px; font-size: 1rem;" />
+                        </div>
+
+                        <!-- Email -->
+                        <div style="margin-bottom: 1.5rem;">
+                            <label style="display: block; color: #ffffff; font-weight: bold; margin-bottom: 0.5rem;">
+                                Correo Electrónico
+                            </label>
+                            <input type="email" name="EmailContacto" class="form-input" required placeholder="tu@email.com" style="width: 100%; padding: 0.75rem; background: #111111; color: #ffffff; border: 1px solid #333333; border-radius: 6px; font-size: 1rem;" />
+                        </div>
+
+                        <!-- Teléfono -->
+                        <div style="margin-bottom: 1.5rem;">
+                            <label style="display: block; color: #ffffff; font-weight: bold; margin-bottom: 0.5rem;">
+                                Teléfono
+                            </label>
+                            <input type="tel" name="TelefonoContacto" class="form-input" required placeholder="+506 8000-0000" style="width: 100%; padding: 0.75rem; background: #111111; color: #ffffff; border: 1px solid #333333; border-radius: 6px; font-size: 1rem;" />
+                        </div>
+
+                        <!-- Fecha y Hora -->
+                        <div style="margin-bottom: 2rem;">
+                            <label style="display: block; color: #ffffff; font-weight: bold; margin-bottom: 0.5rem;">
+                                Fecha y Hora de la Visita
+                            </label>
+                            @Html.TextBoxFor(m => m.FechaVista, "{0:yyyy-MM-ddTHH:mm}", new { @class = "form-input", @type = "datetime-local", @required = "required", @style = "width: 100%; padding: 0.75rem; background: #111111; color: #ffffff; border: 1px solid #333333; border-radius: 6px; font-size: 1rem;" })
+
+                            <small style="color: #a0a0a0; display: block; margin-top: 0.5rem;">
+                                Selecciona una fecha en el futuro
+                            </small>
+                        </div>
+
+                        <!-- Botones -->
+                        <div style="display: flex; gap: 1rem;">
+                            <button type="submit" class="boton btn-primary" style="flex: 1; border-radius: 6px; padding: 0.75rem; font-weight: bold; cursor: pointer;">
+                                ✓ Confirmar Reserva
+                            </button>
+                            <a href="@Url.Action("Index", "Reservas")" class="boton btn-secondary" style="flex: 1; text-align: center; border-radius: 6px; padding: 0.75rem; text-decoration: none; display: flex; align-items: center; justify-content: center; background: #111111; color: #ffffff; border: 1px solid #333333;">
+                                ← Volver
+                            </a>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    }
+    else
+    {
+        <div style="background: #2a1215; padding: 1.5rem; border-radius: 8px; border-left: 4px solid #f5222d;">
+            <p style="margin: 0; color: #ff4d4f;">
+                <strong>Error:</strong> No se encontró el vehículo. Por favor, intenta nuevamente.
+            </p>
+            <a href="@Url.Action("Index", "Reservas")" class="boton btn-primary" style="margin-top: 1rem; display: inline-block;">
+                ← Volver a Reservas
+            </a>
+        </div>
+    }
+</div>
+
+<script>
+    // Validar que la fecha mínima sea mañana
+    document.addEventListener('DOMContentLoaded', function () {
+        var fechaInput = document.querySelector('input[type="datetime-local"]');
+        if (fechaInput) {
+            var tomorrow = new Date();
+            tomorrow.setDate(tomorrow.getDate() + 1);
+            var minDate = tomorrow.toISOString().slice(0, 16);
+            fechaInput.setAttribute('min', minDate);
+        }
+    });
+</script>
+
+<style>
+    /* Hace visible el icono del calendario en los inputs oscuros */
+    input[type="datetime-local"]::-webkit-calendar-picker-indicator {
+        filter: invert(1);
+        cursor: pointer;
+    }
+
+    @@media (max-width: 768px) {
+        div[style*="grid-template-columns: 1fr 1fr"] {
+            grid-template-columns: 1fr !important;
+        }
+    }
+</style>

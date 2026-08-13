@@ -1,0 +1,98 @@
+﻿@model Proyecto.Models.Entities.ReservaVisita
+@{
+    ViewBag.Title = "Cita Reservada";
+}
+
+<div class="page-header">
+    <span class="label">Concesionario</span>
+    <h2>¡Tu Cita ha sido Reservada!</h2>
+</div>
+
+<div class="page-content">
+    <!-- Banner de éxito en modo oscuro -->
+    <div style="background: #1e3a29; padding: 2rem; border-radius: 8px; border: 1px solid #2e6a44; border-left: 4px solid #52c41a; margin-bottom: 2rem;">
+        <p style="color: #52c41a; font-size: 1.2rem; margin: 0;">
+            <strong>✓ Cita Registrada Exitosamente</strong>
+        </p>
+        <p style="color: #d9f7be; margin: 0.5rem 0 0 0;">
+            Número de Reserva: <strong>#@Model.Id</strong>
+        </p>
+    </div>
+
+    @if (Model.Vehiculo != null)
+    {
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-bottom: 2rem;">
+            <!-- Información del Vehículo -->
+            <div>
+                @if (!string.IsNullOrEmpty(Model.Vehiculo.ImagenUrl))
+                {
+                    <img src="@Model.Vehiculo.ImagenUrl" alt="@Model.Vehiculo.Marca @Model.Vehiculo.Modelo" style="width: 100%; border-radius: 8px; margin-bottom: 1rem; border: 1px solid #333333; object-fit: cover;" />
+                }
+                <div style="background: #1a1a1a; padding: 1.5rem; border-radius: 8px; border: 1px solid #333333; color: #ffffff;">
+                    <h3 style="margin-top: 0; color: #ffffff;">@Model.Vehiculo.Marca @Model.Vehiculo.Modelo</h3>
+                    <p style="color: #a0a0a0; margin: 0.5rem 0;">
+                        <strong>Año:</strong> @Model.Vehiculo.Anio
+                    </p>
+                    <p style="color: #52c41a; font-size: 1.4rem; font-weight: bold; margin: 1rem 0 0 0;">
+                        ₡@Model.Vehiculo.Precio.ToString("N0")
+                    </p>
+                </div>
+            </div>
+
+            <!-- Detalles de la Cita -->
+            <div>
+                <div style="background: #1a1a1a; padding: 2rem; border-radius: 8px; border: 1px solid #333333; color: #ffffff;">
+                    <h4 style="margin-top: 0; color: #ffffff; border-bottom: 1px solid #2a2a2a; padding-bottom: 0.75rem; margin-bottom: 1.5rem;">
+                        Detalles de tu Cita
+                    </h4>
+
+                    <div style="margin-bottom: 1.5rem;">
+                        <p style="color: #a0a0a0; font-size: 0.9rem; margin: 0;">ESTADO</p>
+                        <p style="color: #ffffff; font-weight: bold; margin: 0.5rem 0 0 0;">
+                            <span style="background: #3a2e1e; color: #ffc53d; padding: 0.25rem 0.75rem; border-radius: 4px; border: 1px solid #614700;">
+                                @Model.EstadoReserva
+                            </span>
+                        </p>
+                    </div>
+
+                    <div style="margin-bottom: 1.5rem;">
+                        <p style="color: #a0a0a0; font-size: 0.9rem; margin: 0;">FECHA DE LA VISITA</p>
+                        <p style="color: #ffffff; font-weight: bold; font-size: 1.1rem; margin: 0.5rem 0 0 0;">
+                            @Model.FechaVista.ToString("dddd, dd 'de' MMMM", new System.Globalization.CultureInfo("es-ES"))
+                        </p>
+                    </div>
+
+                    <div style="margin-bottom: 2rem;">
+                        <p style="color: #a0a0a0; font-size: 0.9rem; margin: 0;">HORA</p>
+                        <p style="color: #ffffff; font-weight: bold; font-size: 1.3rem; margin: 0.5rem 0 0 0;">
+                            @Model.FechaVista.ToString("HH:mm")
+                        </p>
+                    </div>
+
+                    <div style="background: #112a45; padding: 1rem; border-radius: 4px; margin-bottom: 1.5rem; border: 1px solid #15395b; border-left: 4px solid #1890ff;">
+                        <p style="margin: 0; color: #40a9ff; font-size: 0.9rem;">
+                            <strong>ℹ Nuestro equipo te contactará en las próximas 24 horas para confirmar tu cita.</strong>
+                        </p>
+                    </div>
+
+                    <div style="display: flex; gap: 1rem;">
+                        <a href="@Url.Action("Index", "Reservas")" class="boton btn-primary" style="flex: 1; text-align: center; border-radius: 6px; padding: 0.75rem; font-weight: bold; text-decoration: none;">
+                            📅 Reservar Otra
+                        </a>
+                        <a href="@Url.Action("Index", "Home")" class="boton btn-secondary" style="flex: 1; text-align: center; border-radius: 6px; padding: 0.75rem; text-decoration: none; display: flex; align-items: center; justify-content: center; background: #111111; color: #ffffff; border: 1px solid #333333;">
+                            🏠 Inicio
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+<style>
+    @@media (max-width: 768px) {
+        div[style*="grid-template-columns: 1fr 1fr"] {
+            grid-template-columns: 1fr !important;
+        }
+    }
+</style>
