@@ -15,15 +15,15 @@
             <a href="@Url.Action("Index", "Autos")">Autos</a>
             <a href="@Url.Action("Index", "Motos")">Motos</a>
             <a href="@Url.Action("Index", "Reservas")">Reservas</a>
-            <a href="@Url.Action("Index", "Sucursales")">Sucursales</a>
 
-            @if (ViewBag.RolActual == "Admin")
+            @if (ViewBag.EsVendedor == true)
+            {
+                <a href="@Url.Action("Index", "Sucursales")">Sucursales</a>
+                <a href="@Url.Action("Index", "Vendedor")">Vendedor</a>
+            }
+            @if (ViewBag.EsAdmin == true)
             {
                 <a href="@Url.Action("Index", "Admin")">Admin</a>
-            }
-            @if (ViewBag.RolActual == "Admin" || ViewBag.RolActual == "Asesor")
-            {
-                <a href="@Url.Action("Index", "Vendedor")">Vendedor</a>
             }
         </div>
 

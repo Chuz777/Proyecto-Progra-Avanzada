@@ -22,9 +22,12 @@
             <h3>Motos</h3>
             <p>Catálogo exclusivo de motocicletas.</p>
         </a>
-        <a class="feature-card" href="@Url.Action("Index", "Sucursales")">
-            <h3>Sucursales</h3>
-            <p>Ubicaciones y contacto de cada sucursal.</p>
-        </a>
+        @if (ViewBag.EsVendedor == true)
+        {
+            <a class="feature-card" href="@Url.Action("Index", "Sucursales")">
+                <h3>Sucursales</h3>
+                <p>Ubicaciones y contacto de cada sucursal.</p>
+            </a>
+        }
     </div>
 </div>

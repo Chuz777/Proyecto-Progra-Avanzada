@@ -39,9 +39,12 @@
                             <a href="@Url.Action("Calcular", "Cotizador", new { vehiculoId = v.Id })" class="boton btn-secondary">
                                 📊 Cotizar
                             </a>
-                            <a href="@Url.Action("Details", "Vehiculos", new { id = v.Id })" class="boton btn-secondary">
-                                📄 Detalles
-                            </a>
+                            @if (ViewBag.EsVendedor == true)
+                            {
+                                <a href="@Url.Action("Details", "Vehiculos", new { id = v.Id })" class="boton btn-secondary">
+                                    📄 Detalles
+                                </a>
+                            }
                         </div>
                     </div>
                 </div>

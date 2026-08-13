@@ -11,9 +11,12 @@
 
 <div class="page-content">
 
-    <a class="boton btn-primary" href="@Url.Action("Create", "Vehiculos")" style="margin-bottom:1.5rem; display:inline-block;">
-        + Agregar Vehículo
-    </a>
+    @if (ViewBag.EsVendedor == true)
+    {
+        <a class="boton btn-primary" href="@Url.Action("Create", "Vehiculos")" style="margin-bottom:1.5rem; display:inline-block;">
+            + Agregar Vehículo
+        </a>
+    }
 
     @if (Model == null || !Model.Any())
     {
@@ -39,10 +42,14 @@
 
                         <div class="card-actions">
                             <a href="@Url.Action("Calcular", "Cotizador", new { vehiculoId = v.Id })" class="boton btn-secondary">
-                                Cotizar</a>
-                            <a class="boton btn-secondary" href="@Url.Action("Details", "Vehiculos", new { id = v.Id })">Ver</a>
-                            <a class="boton btn-secondary" href="@Url.Action("Edit", "Vehiculos", new { id = v.Id })">Editar</a>
-                            <a class="boton btn-danger" href="@Url.Action("Delete", "Vehiculos", new { id = v.Id })">Eliminar</a>
+                                Cotizar
+                            </a>
+                            @if (ViewBag.EsVendedor == true)
+                            {
+                                <a class="boton btn-secondary" href="@Url.Action("Details", "Vehiculos", new { id = v.Id })">Ver</a>
+                                <a class="boton btn-secondary" href="@Url.Action("Edit", "Vehiculos", new { id = v.Id })">Editar</a>
+                                <a class="boton btn-danger" href="@Url.Action("Delete", "Vehiculos", new { id = v.Id })">Eliminar</a>
+                            }
                         </div>
                     </div>
                 </div>
