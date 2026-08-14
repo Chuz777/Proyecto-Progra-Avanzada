@@ -7,7 +7,7 @@ using Proyecto.Models.Entities;
 
 namespace Proyecto.Controllers
 {
-    public class ReservasController : Controller
+    public class ReservasController : BaseController
     {
         private ConcesionarioDbContext _context = new ConcesionarioDbContext();
 
