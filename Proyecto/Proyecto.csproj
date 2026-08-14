@@ -209,6 +209,10 @@
     <Compile Include="Migrations\202608140538329_AddContactoToReservaVisita.Designer.cs">
       <DependentUpon>202608140538329_AddContactoToReservaVisita.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202608142251437_AllowNullUsuarioIdInReserva.cs" />
+    <Compile Include="Migrations\202608142251437_AllowNullUsuarioIdInReserva.Designer.cs">
+      <DependentUpon>202608142251437_AllowNullUsuarioIdInReserva.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\DTOs\CreateVehiculoDTO.cs" />
     <Compile Include="Models\DTOs\VehiculoDTO.cs" />
@@ -261,6 +265,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202608140538329_AddContactoToReservaVisita.resx">
       <DependentUpon>202608140538329_AddContactoToReservaVisita.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202608142251437_AllowNullUsuarioIdInReserva.resx">
+      <DependentUpon>202608142251437_AllowNullUsuarioIdInReserva.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

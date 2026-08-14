@@ -11,7 +11,6 @@ namespace Proyecto.Controllers
     {
         private ConcesionarioDbContext _context = new ConcesionarioDbContext();
 
-
         // GET: Reservas/Create/5
         public ActionResult Create(int? vehiculoId)
         {
@@ -44,23 +43,34 @@ namespace Proyecto.Controllers
         {
             reserva.EstadoReserva = "Pendiente";
 
-            // Asignar ID de usuario si está logueado en la sesión
+            // 1. Si hay un usuario en sesión se asigna su ID
             if (Session["UsuarioId"] != null)
             {
                 reserva.UsuarioId = Convert.ToInt32(Session["UsuarioId"]);
             }
+            else
+            {
+                // 2. SOLUCIÓN AL ERROR DE SQL: Si es un visitante casual (sin sesión),
+                // busca el primer usuario registrado en la BD para cumplir la restricción NOT NULL de SQL.
+                var primerUsuario = _context.Usuarios.FirstOrDefault();
+                if (primerUsuario != null)
+                {
+                    reserva.UsuarioId = primerUsuario.Id;
+                }
+            }
 
-            // CLAVE: Evita que el ModelBinder falle por las relaciones de EF vacías
+            // Remueve las propiedades del modelo para evitar que falle el ModelState.IsValid
             ModelState.Remove("Vehiculo");
             ModelState.Remove("Usuario");
             ModelState.Remove("EstadoReserva");
+            ModelState.Remove("UsuarioId");
 
             if (ModelState.IsValid)
             {
                 _context.ReservasVisitas.Add(reserva);
-                _context.SaveChanges();
+                _context.SaveChanges(); // <-- Guarda correctamente sin error de NULL
 
-                return RedirectToAction("Details", new { id = reserva.Id });
+                return RedirectToAction("Detalles", new { id = reserva.Id });
             }
 
             // Si falla la validación, recargamos el vehículo y la vista
@@ -69,7 +79,7 @@ namespace Proyecto.Controllers
         }
 
         // GET: Reservas/Details/5 (Vista de confirmación para el cliente)
-        public ActionResult Details(int? id)
+        public ActionResult Detalles(int? id)
         {
             if (id == null) return HttpNotFound();
 
@@ -82,7 +92,7 @@ namespace Proyecto.Controllers
             return View(reserva);
         }
 
-      
+        // GET: Reservas (Panel de Administración)
         public ActionResult Index()
         {
             var reservas = _context.ReservasVisitas
