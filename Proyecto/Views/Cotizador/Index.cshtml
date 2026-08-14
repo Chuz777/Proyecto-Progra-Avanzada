@@ -1,0 +1,87 @@
+﻿@model IEnumerable<Proyecto.Models.Entities.Cotizador>
+
+@{
+    ViewBag.Title = "Gestión de Cotizaciones";
+}
+
+<div class="page-header">
+    <span class="label">Módulo de Administración / Ventas</span>
+    <h2>Historial de Cotizaciones</h2>
+</div>
+
+<div class="page-content">
+
+    <div class="hero-actions" style="justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+        <div>
+            <p class="badge">
+                Total registradas: @Model.Count()
+            </p>
+        </div>
+        <div>    
+        </div>
+    </div>
+
+    @if (!Model.Any())
+    {
+        <div class="card-vehiculo" style="padding: 2rem; text-align: center;">
+            <p class="descripcion">No hay cotizaciones registradas en el sistema.</p>
+        </div>
+    }
+    else
+    {
+        <table class="tabla-admin">
+            <thead>
+                <tr>
+                    <th>Folio</th>
+                    <th>Fecha</th>
+                    <th>Cliente</th>
+                    <th>Correo</th>
+                    <th>Precio Vehículo</th>
+                    <th>Cuota Est.</th>
+                    <th style="text-align: center;">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    var cuota = item.CalcularCuotaMensual(8.5m);
+                    <tr>
+                        <td>
+                            <strong>#COT-@item.Id</strong>
+                        </td>
+                        <td>
+                            @item.FechaCotizacion.ToString("dd/MM/yyyy HH:mm")
+                        </td>
+                        <td>
+                            <strong>@(string.IsNullOrEmpty(item.NombreCliente) ? "Sin registrar" : item.NombreCliente)</strong>
+                        </td>
+                        <td>
+                            @(string.IsNullOrEmpty(item.EmailCliente) ? "-" : item.EmailCliente)
+                        </td>
+                        <td>
+                            ₡@item.PrecioFinal.ToString("N0")
+                        </td>
+                        <td>
+                            <span class="badge disponible">
+                                ₡@cuota.ToString("N0")/mes
+                            </span>
+                        </td>
+                        <td style="text-align: center;">
+                            <div style="display: flex; gap: .5rem; justify-content: center;">
+                                <a href="@Url.Action("Comprobante", "Cotizador", new { id = item.Id })" class="boton btn-secondary" title="Ver Comprobante">
+                                    📄 Ver
+                                </a>
+                                <form action="@Url.Action("Eliminar", "Cotizador", new { id = item.Id })" method="post" class="form-inline-fila" onsubmit="return confirm('¿Seguro que deseas eliminar esta cotización?');">
+                                    @Html.AntiForgeryToken()
+                                    <button type="submit" class="boton btn-danger" title="Eliminar">
+                                        🗑
+                                    </button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+</div>

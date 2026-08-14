@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Web.Mvc;
 using Proyecto.infrastructure.DbContexts;
 using Proyecto.Models.Entities;
@@ -9,7 +10,19 @@ namespace Proyecto.Controllers
     [AllowAnonymous]
     public class CotizadorController : Controller
     {
-        private ConcesionarioDbContext db = new ConcesionarioDbContext();
+        private readonly ConcesionarioDbContext db = new ConcesionarioDbContext();
+
+        // GET: Cotizador
+        // Muestra el listado/historial para el Administrador y Vendedor
+        [HttpGet]
+        public ActionResult Index()
+        {
+            var cotizaciones = db.Cotizaciones
+                                 .OrderByDescending(c => c.FechaCotizacion)
+                                 .ToList();
+
+            return View(cotizaciones);
+        }
 
         [HttpGet]
         public ActionResult Calcular(int vehiculoId)
@@ -47,9 +60,12 @@ namespace Proyecto.Controllers
         {
             var cotizador = new Cotizador
             {
+                VehiculoId = model.VehiculoId,
                 PrecioFinal = model.PrecioVehiculo,
                 PrimaSugerida = model.Prima,
                 PlazoMeses = model.PlazoMeses,
+                NombreCliente = model.NombreCliente,
+                EmailCliente = model.EmailCliente,
                 FechaCotizacion = DateTime.Now
             };
 
@@ -63,25 +79,36 @@ namespace Proyecto.Controllers
                     return View(model);
                 }
 
-                db.Set<Cotizador>().Add(cotizador);
+                db.Cotizaciones.Add(cotizador);
                 db.SaveChanges();
 
-                return RedirectToAction("Comprobante", new { id = cotizador.Id, cliente = model.NombreCliente, correo = model.EmailCliente });
+                return RedirectToAction("Comprobante", new { id = cotizador.Id });
             }
 
             return View(model);
         }
 
         [HttpGet]
-        public ActionResult Comprobante(int id, string cliente, string correo)
+        public ActionResult Comprobante(int id)
         {
-            var cotizacion = db.Set<Cotizador>().Find(id);
+            var cotizacion = db.Cotizaciones.Find(id);
             if (cotizacion == null) return HttpNotFound();
 
-            ViewBag.NombreCliente = cliente;
-            ViewBag.EmailCliente = correo;
-
             return View(cotizacion);
+        }
+
+        // POST: Cotizador/Eliminar/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Eliminar(int id)
+        {
+            var cotizacion = db.Cotizaciones.Find(id);
+            if (cotizacion != null)
+            {
+                db.Cotizaciones.Remove(cotizacion);
+                db.SaveChanges();
+            }
+            return RedirectToAction("Index");
         }
 
         protected override void Dispose(bool disposing)

@@ -490,3 +490,246 @@ footer {
 		color: var(--muted);
 		font-size: .95rem;
 	}
+
+
+
+/* COMPROBANTE DE COTIZACION */
+.comprobante-card {
+	padding: 2.5rem;
+	max-width: 800px;
+	margin: 0 auto;
+}
+
+.comprobante-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: flex-start;
+	border-bottom: 1px solid var(--border);
+	padding-bottom: 1.5rem;
+	margin-bottom: 2rem;
+}
+
+.comprobante-folio {
+	text-align: right;
+}
+
+.comprobante-cliente {
+	background: rgba(255, 255, 255, .02);
+	border: 1px solid var(--border);
+	border-radius: 6px;
+	padding: 1.25rem;
+	margin-bottom: 2rem;
+	display: flex;
+	flex-direction: column;
+	gap: .4rem;
+}
+
+	.comprobante-cliente label {
+		font-family: var(--font-mono);
+		font-size: .72rem;
+		text-transform: uppercase;
+		letter-spacing: 1px;
+		color: var(--muted);
+		margin-bottom: .25rem;
+	}
+
+.comprobante-nota {
+	margin: 1.5rem 0 2rem;
+	font-style: italic;
+}
+
+/* REGLAS DE IMPRESIÓN */
+@media print {
+	nav, footer, .page-header, .no-print {
+		display: none !important;
+	}
+
+	body {
+		background: #fff !important;
+		color: #000 !important;
+	}
+
+	.card-vehiculo {
+		background: #fff !important;
+		border: none !important;
+		box-shadow: none !important;
+		color: #000 !important;
+	}
+
+	.tabla-admin th, .tabla-admin td {
+		border-color: #ccc !important;
+		color: #000 !important;
+	}
+}
+
+
+/* ==========================================
+   Estilos para Crear Reserva (Reservas/Create)
+   ========================================== */
+
+/* Layout Grid de Creación */
+.reserva-grid {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 2rem;
+	margin-bottom: 2rem;
+}
+
+/* Tarjeta e Imagen del Vehículo */
+.vehiculo-preview-img {
+	width: 100%;
+	border-radius: 8px;
+	margin-bottom: 1rem;
+	border: 1px solid #333333;
+	object-fit: cover;
+}
+
+.vehiculo-info-card,
+.reserva-form-card {
+	background: #1a1a1a;
+	padding: 1.5rem;
+	border-radius: 8px;
+	border: 1px solid #333333;
+	color: #ffffff;
+}
+
+.reserva-form-card {
+	padding: 2rem;
+}
+
+.vehiculo-info-card h3 {
+	margin-top: 0;
+	color: #ffffff;
+}
+
+.vehiculo-info-card p {
+	color: #a0a0a0;
+	margin: 0.5rem 0;
+}
+
+.vehiculo-precio {
+	color: #52c41a;
+	font-size: 1.4rem;
+	font-weight: bold;
+	margin: 1rem 0 0 0;
+}
+
+/* Formulario */
+.form-title {
+	margin-top: 0;
+	color: #ffffff;
+	border-bottom: 1px solid #2a2a2a;
+	padding-bottom: 0.75rem;
+	margin-bottom: 1.5rem;
+}
+
+.form-group {
+	margin-bottom: 1.5rem;
+}
+
+.form-group-last {
+	margin-bottom: 2rem;
+}
+
+.form-label {
+	display: block;
+	color: #ffffff;
+	font-weight: bold;
+	margin-bottom: 0.5rem;
+}
+
+.form-input-dark {
+	width: 100%;
+	padding: 0.75rem;
+	background: #111111;
+	color: #ffffff;
+	border: 1px solid #333333;
+	border-radius: 6px;
+	font-size: 1rem;
+	box-sizing: border-box;
+}
+
+	.form-input-dark:focus {
+		outline: none;
+		border-color: #52c41a;
+	}
+
+.form-help-text {
+	color: #a0a0a0;
+	display: block;
+	margin-top: 0.5rem;
+}
+
+.text-danger {
+	color: #ff4d4f;
+	font-size: 0.85rem;
+	display: block;
+	margin-top: 0.25rem;
+}
+
+.validation-summary-errors {
+	color: #ff4d4f;
+	margin-bottom: 1rem;
+	list-style: none;
+	padding: 0;
+}
+
+/* Acciones y Botones */
+.form-actions {
+	display: flex;
+	gap: 1rem;
+}
+
+.btn-flex {
+	flex: 1;
+	border-radius: 6px;
+	padding: 0.75rem;
+	font-weight: bold;
+	cursor: pointer;
+	text-align: center;
+}
+
+.btn-secondary-dark {
+	flex: 1;
+	text-align: center;
+	border-radius: 6px;
+	padding: 0.75rem;
+	text-decoration: none;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background: #111111;
+	color: #ffffff;
+	border: 1px solid #333333;
+	transition: background 0.2s ease;
+}
+
+	.btn-secondary-dark:hover {
+		background: #222222;
+		color: #ffffff;
+	}
+
+/* Estado de Error */
+.alert-error-card {
+	background: #2a1215;
+	padding: 1.5rem;
+	border-radius: 8px;
+	border-left: 4px solid #f5222d;
+}
+
+.alert-error-text {
+	margin: 0;
+	color: #ff4d4f;
+}
+
+/* Calendar Fix & Media Queries */
+input[type="datetime-local"]::-webkit-calendar-picker-indicator {
+	filter: invert(1);
+	cursor: pointer;
+}
+
+@media (max-width: 768px) {
+	.reserva-grid {
+		grid-template-columns: 1fr;
+	}
+}

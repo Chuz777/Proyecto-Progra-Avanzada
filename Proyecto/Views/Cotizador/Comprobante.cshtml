@@ -10,78 +10,70 @@
 </div>
 
 <div class="page-content">
-    <div style="background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 2.5rem; max-width: 800px; margin: 0 auto;">
+    <div class="card-vehiculo comprobante-card">
 
         <!-- Encabezado del Comprobante -->
-        <div style="display: flex; justify-content: space-between; border-bottom: 1px solid var(--border); padding-bottom: 1.5rem; margin-bottom: 2rem;">
+        <div class="comprobante-header">
             <div>
-                <h3 style="font-family: var(--font-display); font-size: 2rem; color: var(--white);">CONCESIONARIO DIGITAL</h3>
-                <p style="color: var(--muted); font-family: var(--font-mono); font-size: 0.85rem;">Costa Rica</p>
+                <h3 class="nav-brand">CONCESIONARIO <span>DIGITAL</span></h3>
+                <p class="badge">Costa Rica</p>
             </div>
-            <div style="text-align: right;">
-                <p style="font-family: var(--font-mono); color: var(--accent); font-weight: bold; font-size: 1.1rem; margin: 0;">
-                    FOLIO: #COT-@Model.Id
-                </p>
-                <p style="color: var(--muted); font-size: 0.85rem; margin-top: 0.25rem;">
+            <div class="comprobante-folio">
+                <p class="precio">FOLIO: #COT-@Model.Id</p>
+                <p class="descripcion">
                     Fecha: @Model.FechaCotizacion.ToString("dd/MM/yyyy HH:mm")
                 </p>
             </div>
         </div>
 
-        <!-- Datos del Cliente -->
-        <div style="margin-bottom: 2rem; background: rgba(255, 255, 255, 0.02); padding: 1.25rem; border-radius: 6px; border: 1px solid var(--border);">
-            <h4 style="font-family: var(--font-mono); color: var(--muted); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 0.75rem;">
-                Datos del Cliente
-            </h4>
-            <p style="margin: 0 0 0.4rem 0; font-weight: bold; color: var(--white);">
-                👤 Cliente: @ViewBag.NombreCliente
-            </p>
-            <p style="margin: 0; color: var(--muted); font-family: var(--font-mono); font-size: 0.9rem;">
-                ✉ Correo: @ViewBag.EmailCliente
-            </p>
+        <!-- Datos del Cliente (Persistidos en Base de Datos) -->
+        <div class="comprobante-cliente">
+            <label>Datos del Cliente</label>
+            <p><strong>👤 Cliente:</strong> @(string.IsNullOrEmpty(Model.NombreCliente) ? "Sin registrar" : Model.NombreCliente)</p>
+            <p class="descripcion"><strong>✉ Correo:</strong> @(string.IsNullOrEmpty(Model.EmailCliente) ? "Sin registrar" : Model.EmailCliente)</p>
         </div>
 
         <!-- Detalles Financieros -->
-        <table class="tabla-admin" style="margin-bottom: 2rem;">
+        <table class="tabla-admin">
             <thead>
                 <tr>
                     <th>Concepto</th>
-                    <th style="text-align: right;">Monto / Detalle</th>
+                    <th>Monto / Detalle</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
                     <td>Precio Final del Vehículo</td>
-                    <td style="text-align: right; font-weight: bold;">₡@Model.PrecioFinal.ToString("N0")</td>
+                    <td><strong>₡@Model.PrecioFinal.ToString("N0")</strong></td>
                 </tr>
                 <tr>
                     <td>Prima Sugerida</td>
-                    <td style="text-align: right; color: var(--accent2); font-weight: bold;">₡@Model.PrimaSugerida.ToString("N0")</td>
+                    <td><span class="precio">₡@Model.PrimaSugerida.ToString("N0")</span></td>
                 </tr>
                 <tr>
                     <td>Plazo Financiamiento</td>
-                    <td style="text-align: right;">@Model.PlazoMeses Meses</td>
+                    <td>@Model.PlazoMeses Meses</td>
                 </tr>
                 <tr>
                     <td>Tasa Estimada Anual</td>
-                    <td style="text-align: right;">8.50%</td>
+                    <td>8.50%</td>
                 </tr>
-                <tr style="background: rgba(46, 204, 113, 0.1);">
-                    <td style="font-weight: bold; color: #2ecc71;">Cuota Mensual Estimada</td>
-                    <td style="text-align: right; font-weight: bold; font-size: 1.25rem; color: #2ecc71; font-family: var(--font-mono);">
-                        ₡@cuota.ToString("N0") / mes
+                <tr>
+                    <td><strong class="badge disponible">Cuota Mensual Estimada</strong></td>
+                    <td>
+                        <strong class="badge disponible">₡@cuota.ToString("N0") / mes</strong>
                     </td>
                 </tr>
             </tbody>
         </table>
 
         <!-- Nota aclaratoria -->
-        <p style="color: var(--muted); font-size: 0.8rem; line-height: 1.4; margin-bottom: 2rem; font-style: italic;">
+        <p class="descripcion comprobante-nota">
             * Presente este documento en la sucursal con el número de folio para validar la oferta. Las cuotas y la aprobación del crédito están sujetas a análisis financiero por parte de las entidades bancarias asociadas.
         </p>
 
         <!-- Botones de Acción -->
-        <div style="display: flex; gap: 1rem; justify-content: flex-end;" class="no-print">
+        <div class="hero-actions no-print">
             <button onclick="window.print();" class="boton btn-primary">
                 🖨 Imprimir / Guardar PDF
             </button>
@@ -89,30 +81,6 @@
                 🏠 Volver al Inicio
             </a>
         </div>
+
     </div>
 </div>
-
-<style>
-    @@media print {
-        nav, footer, .page-header, .no-print {
-            display: none !important;
-        }
-
-        body {
-            background: #ffffff !important;
-            color: #000000 !important;
-        }
-
-        div[style*="background: var(--card)"] {
-            background: #ffffff !important;
-            color: #000000 !important;
-            border: none !important;
-            box-shadow: none !important;
-        }
-
-        .tabla-admin th, .tabla-admin td {
-            color: #000000 !important;
-            border-bottom: 1px solid #ccc !important;
-        }
-    }
-</style>

@@ -21,18 +21,35 @@ namespace Proyecto.Models.Entities
         [StringLength(20)]
         public string EstadoReserva { get; set; } = "Pendiente"; // "Pendiente", "Confirmada", "Cancelada"
 
+
+        [Required(ErrorMessage = "El nombre de contacto es obligatorio.")]
+        [StringLength(100)]
+        [Display(Name = "Nombre Completo")]
+        public string NombreContacto { get; set; }
+
+        [Required(ErrorMessage = "El correo electrónico es obligatorio.")]
+        [EmailAddress(ErrorMessage = "Correo electrónico inválido.")]
+        [StringLength(100)]
+        [Display(Name = "Correo Electrónico")]
+        public string EmailContacto { get; set; }
+
+        [Required(ErrorMessage = "El teléfono de contacto es obligatorio.")]
+        [StringLength(20)]
+        [Display(Name = "Teléfono")]
+        public string TelefonoContacto { get; set; }
+
+
         [Required]
         public int VehiculoId { get; set; }
         [ForeignKey("VehiculoId")]
         public virtual Vehiculo Vehiculo { get; set; }
 
-        [Required]
-        public int UsuarioId { get; set; }
+     
+        public int? UsuarioId { get; set; }
         [ForeignKey("UsuarioId")]
         public virtual Usuario Usuario { get; set; }
 
         public void Confirmar() { this.EstadoReserva = "Confirmada"; }
         public void Cancelar() { this.EstadoReserva = "Cancelada"; }
-
     }
 }

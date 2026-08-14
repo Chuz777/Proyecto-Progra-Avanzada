@@ -158,6 +158,8 @@
     <Content Include="Views\Reservas\Index.cshtml" />
     <Content Include="Views\Cotizador\Calcular.cshtml" />
     <Content Include="Views\Cotizador\Comprobante.cshtml" />
+    <Content Include="Views\Cotizador\Index.cshtml" />
+    <Content Include="Views\Cotizador\Details.cshtml" />
     <None Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Sucursales\Index.cshtml" />
     <Content Include="Views\Sucursales\Create.cshtml" />
@@ -194,6 +196,18 @@
     <Compile Include="Migrations\202608040405467_AjusteTablas.cs" />
     <Compile Include="Migrations\202608040405467_AjusteTablas.Designer.cs">
       <DependentUpon>202608040405467_AjusteTablas.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202608140424414_ActualizacionCotizador.cs" />
+    <Compile Include="Migrations\202608140424414_ActualizacionCotizador.Designer.cs">
+      <DependentUpon>202608140424414_ActualizacionCotizador.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202608140439384_ActualizacionCotizador1.cs" />
+    <Compile Include="Migrations\202608140439384_ActualizacionCotizador1.Designer.cs">
+      <DependentUpon>202608140439384_ActualizacionCotizador1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202608140538329_AddContactoToReservaVisita.cs" />
+    <Compile Include="Migrations\202608140538329_AddContactoToReservaVisita.Designer.cs">
+      <DependentUpon>202608140538329_AddContactoToReservaVisita.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\DTOs\CreateVehiculoDTO.cs" />
@@ -238,6 +252,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202608040405467_AjusteTablas.resx">
       <DependentUpon>202608040405467_AjusteTablas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202608140424414_ActualizacionCotizador.resx">
+      <DependentUpon>202608140424414_ActualizacionCotizador.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202608140439384_ActualizacionCotizador1.resx">
+      <DependentUpon>202608140439384_ActualizacionCotizador1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202608140538329_AddContactoToReservaVisita.resx">
+      <DependentUpon>202608140538329_AddContactoToReservaVisita.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

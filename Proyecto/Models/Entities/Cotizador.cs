@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Proyecto.Models.Entities
 {
@@ -11,6 +9,20 @@ namespace Proyecto.Models.Entities
         [Key]
         public int Id { get; set; }
 
+        // --- Propiedades para vincular el vehículo ---
+        public int? VehiculoId { get; set; }
+
+        [ForeignKey("VehiculoId")]
+        public virtual Vehiculo Vehiculo { get; set; }
+
+        // --- Datos opcionales del cliente ---
+        [Display(Name = "Nombre del Cliente")]
+        public string NombreCliente { get; set; }
+
+        [Display(Name = "Correo Electrónico")]
+        public string EmailCliente { get; set; }
+
+        // --- Propiedades financieras de la cotización ---
         [Required]
         [Display(Name = "Precio Final")]
         public decimal PrecioFinal { get; set; }
@@ -27,7 +39,7 @@ namespace Proyecto.Models.Entities
         [Required]
         public DateTime FechaCotizacion { get; set; } = DateTime.Now;
 
-        // Matematicas para los plazos
+        // Matemáticas para los plazos
         public decimal CalcularCuotaMensual(decimal tasaInteresAnual = 8.5m)
         {
             decimal montoFinanciar = PrecioFinal - PrimaSugerida;
@@ -38,5 +50,5 @@ namespace Proyecto.Models.Entities
 
             return montoFinanciar * (tasaMensual * (decimal)factor) / (decimal)(factor - 1);
         }
-        }
+    }
 }

@@ -1,62 +1,99 @@
-﻿@model IEnumerable<Proyecto.Models.Entities.Vehiculo>
+﻿@model IEnumerable<Proyecto.Models.Entities.ReservaVisita>
+
 @{
-    ViewBag.Title = "Reservar Cita";
+    ViewBag.Title = "Gestión de Reservas";
 }
 
 <div class="page-header">
-    <span class="label">Concesionario</span>
-    <h2>Reservar Cita para Ver un Vehículo</h2>
+    <span class="label">Administración</span>
+    <h2>Gestión de Reservas de Citas</h2>
 </div>
 
 <div class="page-content">
-    <p style="color: var(--muted); margin-bottom: 2rem;">
-        Selecciona un vehículo de nuestro inventario y reserva una cita para verlo en persona.
-    </p>
-
-    @if (Model != null && Model.Any())
-    {
-        <div class="grid-vehiculos">
-            @foreach (var v in Model)
-            {
-                <div class="card-vehiculo">
-                    @if (!string.IsNullOrEmpty(v.ImagenUrl))
+    <div style="background: #1a1a1a; padding: 1.5rem; border-radius: 8px; border: 1px solid #333333; overflow-x: auto;">
+        @if (!Model.Any())
+        {
+            <p style="color: #a0a0a0; text-align: center; margin: 2rem 0;">No hay reservas registradas en el sistema.</p>
+        }
+        else
+        {
+            <table style="width: 100%; border-collapse: collapse; color: #ffffff; text-align: left;">
+                <thead>
+                    <tr style="border-bottom: 1px solid #333333; color: #a0a0a0;">
+                        <th style="padding: 1rem;">Vehículo</th>
+                        <th style="padding: 1rem;">Cliente</th>
+                        <th style="padding: 1rem;">Contacto</th>
+                        <th style="padding: 1rem;">Fecha Visita</th>
+                        <th style="padding: 1rem;">Estado</th>
+                        <th style="padding: 1rem; text-align: center;">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
                     {
-                        <img src="@v.ImagenUrl" alt="@v.Modelo" />
+                        <tr style="border-bottom: 1px solid #222222;">
+                            <td style="padding: 1rem;">
+                                <strong>@item.Vehiculo.Marca @item.Vehiculo.Modelo</strong>
+                                <br />
+                                <small style="color: #a0a0a0;">₡@item.Vehiculo.Precio.ToString("N0")</small>
+                            </td>
+                            <td style="padding: 1rem;">
+                                @item.NombreContacto
+                            </td>
+                            <td style="padding: 1rem;">
+                                <small style="display: block;">✉ @item.EmailContacto</small>
+                                <small style="display: block; color: #a0a0a0;">📞 @item.TelefonoContacto</small>
+                            </td>
+                            <td style="padding: 1rem;">
+                                @item.FechaVista.ToString("dd/MM/yyyy hh:mm tt")
+                            </td>
+                            <td style="padding: 1rem;">
+                                @if (item.EstadoReserva == "Pendiente")
+                                {
+                                    <span style="background: #d4b106; color: #000; padding: 0.25rem 0.6rem; border-radius: 4px; font-size: 0.85rem; font-weight: bold;">Pendiente</span>
+                                }
+                                else if (item.EstadoReserva == "Confirmada")
+                                {
+                                    <span style="background: #52c41a; color: #000; padding: 0.25rem 0.6rem; border-radius: 4px; font-size: 0.85rem; font-weight: bold;">Confirmada</span>
+                                }
+                                else
+                                {
+                                    <span style="background: #ff4d4f; color: #fff; padding: 0.25rem 0.6rem; border-radius: 4px; font-size: 0.85rem; font-weight: bold;">Cancelada</span>
+                                }
+                            </td>
+                            <td style="padding: 1rem; text-align: center;">
+                                <div style="display: flex; gap: 0.5rem; justify-content: center;">
+                                    <!-- Confirmar -->
+                                    @using (Html.BeginForm("CambiarEstado", "Reservas", FormMethod.Post))
+                                    {
+                                        @Html.AntiForgeryToken()
+                                        <input type="hidden" name="id" value="@item.Id" />
+                                        <input type="hidden" name="nuevoEstado" value="Confirmada" />
+                                        <button type="submit" style="background: #177ddc; color: #fff; border: none; padding: 0.4rem 0.75rem; border-radius: 4px; cursor: pointer; font-size: 0.85rem;">✓ Confirmar</button>
+                                    }
+
+                                    <!-- Cancelar -->
+                                    @using (Html.BeginForm("CambiarEstado", "Reservas", FormMethod.Post))
+                                    {
+                                        @Html.AntiForgeryToken()
+                                        <input type="hidden" name="id" value="@item.Id" />
+                                        <input type="hidden" name="nuevoEstado" value="Cancelada" />
+                                        <button type="submit" style="background: #d32f2f; color: #fff; border: none; padding: 0.4rem 0.75rem; border-radius: 4px; cursor: pointer; font-size: 0.85rem;">✕ Cancelar</button>
+                                    }
+
+                                    <!-- Borrar / Eliminar -->
+                                    @using (Html.BeginForm("Delete", "Reservas", FormMethod.Post, new { onsubmit = "return confirm('¿Estás seguro de borrar esta reserva?');" }))
+                                    {
+                                        @Html.AntiForgeryToken()
+                                        <input type="hidden" name="id" value="@item.Id" />
+                                        <button type="submit" style="background: #333; color: #ff4d4f; border: 1px solid #ff4d4f; padding: 0.4rem 0.75rem; border-radius: 4px; cursor: pointer; font-size: 0.85rem;">🗑 Borrar</button>
+                                    }
+                                </div>
+                            </td>
+                        </tr>
                     }
-
-                    <div class="card-body">
-                        <span class="badge @(v.Estado == "Disponible" ? "disponible" : v.Estado == "Reservado" ? "reservado" : "vendido")">
-                            @v.Estado
-                        </span>
-                        <h3>@v.Marca @v.Modelo</h3>
-                        <span class="precio">₡@v.Precio.ToString("N0")</span>
-                        <span class="descripcion">@v.Descripcion</span>
-
-                        <div class="card-actions">
-                            <a href="@Url.Action("Create", "Reservas", new { vehiculoId = v.Id })" class="boton btn-primary">
-                                📅 Cita
-                            </a>
-                            <a href="@Url.Action("Calcular", "Cotizador", new { vehiculoId = v.Id })" class="boton btn-secondary">
-                                📊 Cotizar
-                            </a>
-                            @if (ViewBag.EsVendedor == true)
-                            {
-                                <a href="@Url.Action("Details", "Vehiculos", new { id = v.Id })" class="boton btn-secondary">
-                                    📄 Detalles
-                                </a>
-                            }
-                        </div>
-                    </div>
-                </div>
-            }
-        </div>
-    }
-    else
-    {
-        <div style="background: var(--card); border: 1px solid var(--accent); padding: 1.5rem; border-radius: 8px;">
-            <p style="color: var(--accent); margin: 0; font-family: var(--font-mono);">
-                <strong>⚠ No hay vehículos disponibles en este momento.</strong>
-            </p>
-        </div>
-    }
+                </tbody>
+            </table>
+        }
+    </div>
 </div>

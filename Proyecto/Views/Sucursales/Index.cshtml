@@ -1,7 +1,9 @@
 ﻿@model IEnumerable<Proyecto.Models.Entities.Sucursal>
-
 @{
     ViewBag.Title = "Sucursales";
+
+    // Verificación de permisos según los ViewBag del sistema
+    bool esAdmin = ViewBag.EsAdmin ?? User.IsInRole("Admin");
 }
 
 <div class="page-header">
@@ -13,16 +15,20 @@
 
     @if (TempData["Error"] != null)
     {
-        <p style="color:#e8372a; margin-bottom:1rem;">@TempData["Error"]</p>
+        <p class="text-danger" style="margin-bottom: 1rem;">@TempData["Error"]</p>
     }
 
-    <a class="boton btn-primary" href="@Url.Action("Create")" style="margin-bottom:1.5rem; display:inline-block;">
-        + Agregar Sucursal
-    </a>
+    @* Solo el ADMIN puede crear una nueva sucursal *@
+    @if (esAdmin)
+    {
+        <a class="boton btn-primary" href="@Url.Action("Create")" style="margin-bottom: 1.5rem; display: inline-block;">
+            + Agregar Sucursal
+        </a>
+    }
 
     @if (Model == null || !Model.Any())
     {
-        <p style="color:#7a7f8e;">Todavía no hay sucursales registradas.</p>
+        <p style="color: var(--muted);">Todavía no hay sucursales registradas.</p>
     }
     else
     {
@@ -36,9 +42,15 @@
                         <span class="descripcion">Tel: @s.Telefono</span>
 
                         <div class="card-actions">
+                            
                             <a class="boton btn-secondary" href="@Url.Action("Details", new { id = s.Id })">Ver</a>
-                            <a class="boton btn-secondary" href="@Url.Action("Edit", new { id = s.Id })">Editar</a>
-                            <a class="boton btn-danger" href="@Url.Action("Delete", new { id = s.Id })">Eliminar</a>
+
+                          
+                            @if (esAdmin)
+                            {
+                                <a class="boton btn-secondary" href="@Url.Action("Edit", new { id = s.Id })">Editar</a>
+                                <a class="boton btn-danger" href="@Url.Action("Delete", new { id = s.Id })">Eliminar</a>
+                            }
                         </div>
                     </div>
                 </div>

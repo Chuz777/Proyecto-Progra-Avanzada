@@ -13,7 +13,9 @@ namespace Proyecto.infrastructure.DbContexts
         public ConcesionarioDbContext() : base("ConcesionarioDbContext")
         {
             this.Configuration.LazyLoadingEnabled = true;
+            Database.SetInitializer(new DropCreateDatabaseIfModelChanges<ConcesionarioDbContext>());
         }
+        
 
         // --- Tablas de la Base de Datos ---
         public DbSet<Categoria> Categorias { get; set; }
@@ -22,6 +24,7 @@ namespace Proyecto.infrastructure.DbContexts
         public DbSet<Usuario> Usuarios { get; set; }
         public DbSet<ReservaVisita> ReservasVisitas { get; set; }
         public DbSet<Cotizador> Cotizaciones { get; set; }
+
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -67,6 +70,9 @@ namespace Proyecto.infrastructure.DbContexts
                 .WillCascadeOnDelete(false);
 
             base.OnModelCreating(modelBuilder);
+
+
+
         }
     }
 }

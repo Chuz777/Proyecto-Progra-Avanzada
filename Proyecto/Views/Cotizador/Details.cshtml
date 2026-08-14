@@ -1,0 +1,52 @@
+﻿@model Proyecto.Models.Entities.Cotizador
+@{
+    ViewBag.Title = "Detalle de Cotización #" + Model.Id;
+    decimal cuota = Model.CalcularCuotaMensual(8.5m);
+}
+
+<div class="page-header">
+    <span class="label">Consulta de Cotización</span>
+    <h2>Cotización #@Model.Id</h2>
+</div>
+
+<div class="page-content">
+    <div class="card-vehiculo" style="max-width: 600px; margin: 0 auto;">
+        <div class="card-body">
+
+            <div style="background: rgba(255, 255, 255, 0.03); border: 1px solid var(--border); padding: 1.25rem; border-radius: 6px; margin-bottom: 1rem;">
+                <span style="font-family: var(--font-mono); font-size: 0.75rem; text-transform: uppercase; color: var(--muted); display: block; margin-bottom: 0.5rem;">Información del Cliente</span>
+                <p style="margin: 0 0 0.3rem 0; font-size: 1.1rem; font-weight: bold;">👤 @(string.IsNullOrEmpty(Model.NombreCliente) ? "No registrado" : Model.NombreCliente)</p>
+                <p style="margin: 0; color: var(--muted); font-family: var(--font-mono);">✉️ @(string.IsNullOrEmpty(Model.EmailCliente) ? "No registrado" : Model.EmailCliente)</p>
+                <p style="margin-top: 0.5rem; font-size: 0.8rem; color: var(--muted);">📅 Fecha de solicitud: @Model.FechaCotizacion.ToString("dd/MM/yyyy hh:mm tt")</p>
+            </div>
+
+            <div style="background: rgba(255, 255, 255, 0.03); border: 1px solid var(--border); padding: 1.25rem; border-radius: 6px; margin-bottom: 1.5rem;">
+                <span style="font-family: var(--font-mono); font-size: 0.75rem; text-transform: uppercase; color: var(--muted); display: block; margin-bottom: 0.5rem;">Detalles Financieros</span>
+
+                @if (Model.Vehiculo != null)
+                {
+                    <p style="margin: 0 0 0.5rem 0;"><strong>Vehículo:</strong> @Model.Vehiculo.Marca @Model.Vehiculo.Modelo</p>
+                }
+
+                <p style="margin: 0 0 0.3rem 0;"><strong>Precio del Vehículo:</strong> ₡@Model.PrecioFinal.ToString("N0")</p>
+                <p style="margin: 0 0 0.3rem 0;"><strong>Prima Aportada:</strong> ₡@Model.PrimaSugerida.ToString("N0")</p>
+                <p style="margin: 0 0 0.3rem 0;"><strong>Monto a Financiar:</strong> ₡@((Model.PrecioFinal - Model.PrimaSugerida).ToString("N0"))</p>
+                <p style="margin: 0 0 0.5rem 0;"><strong>Plazo Elegido:</strong> @Model.PlazoMeses Meses</p>
+
+                <hr style="border: 0; border-top: 1px solid var(--border); margin: 0.75rem 0;" />
+
+                <span style="font-family: var(--font-mono); font-size: 0.75rem; text-transform: uppercase; color: var(--muted); display: block;">Cuota Estimada Calculada</span>
+                <span style="font-family: var(--font-mono); font-size: 1.8rem; color: #2ecc71; font-weight: 700; display: block; margin-top: 0.2rem;">
+                    ₡@cuota.ToString("N0") / mes
+                </span>
+            </div>
+
+            <div class="card-actions">
+                <a class="boton btn-secondary" href="@Url.Action("Index", "Cotizador")">
+                    ⬅ Volver al Historial
+                </a>
+            </div>
+
+        </div>
+    </div>
+</div>

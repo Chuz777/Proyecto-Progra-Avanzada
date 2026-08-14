@@ -1,24 +1,42 @@
 ﻿@model Proyecto.Models.Entities.Sucursal
-
 @{
     ViewBag.Title = "Detalle de la Sucursal";
+
+    bool esAdmin = ViewBag.EsAdmin ?? User.IsInRole("Admin");
 }
 
 <div class="page-header">
-    <span class="label">Ficha</span>
+    <span class="label">Ficha de Sucursal</span>
     <h2>@Model.Nombre</h2>
 </div>
 
 <div class="page-content">
-    <div class="card-vehiculo" style="max-width:500px;">
+    <div class="card-vehiculo" style="max-width: 500px; margin: 0 auto;">
         <div class="card-body">
-            <p class="descripcion">Dirección: @Model.Direccion</p>
-            <p class="descripcion">Teléfono: @Model.Telefono</p>
+
+            <div style="background: rgba(255, 255, 255, 0.03); border: 1px solid var(--border); padding: 1.25rem; border-radius: 6px; margin-bottom: 1.5rem;">
+                <p style="color: var(--white); margin-bottom: .75rem; font-size: 1rem;">
+                    <strong>📍 Dirección:</strong> @Model.Direccion
+                </p>
+                <p style="color: var(--muted); font-family: var(--font-mono); font-size: .9rem; margin: 0;">
+                    <strong>📞 Teléfono:</strong> @Model.Telefono
+                </p>
+            </div>
 
             <div class="card-actions">
-                <a class="boton btn-secondary" href="@Url.Action("Edit", new { id = Model.Id })">Editar</a>
-                <a class="boton btn-secondary" href="@Url.Action("Index")">Volver a Sucursales</a>
+                <a class="boton btn-secondary" href="@Url.Action("Index")">
+                    Volver a Sucursales
+                </a>
+
+       
+                @if (esAdmin)
+                {
+                    <a class="boton btn-primary" href="@Url.Action("Edit", new { id = Model.Id })">
+                        Editar
+                    </a>
+                }
             </div>
+
         </div>
     </div>
 </div>

@@ -41,7 +41,7 @@ namespace Proyecto.Models.Entities
 
         [Required]
         [StringLength(20)]
-        public string Estado { get; set; } = "Disponible"; // "Disponible", "Reservado", "Vendido"
+        public string Estado { get; set; } = "Disponible";
 
         // Relaciones DB
         [Required(ErrorMessage = "Debe asignar una categoría.")]
@@ -53,6 +53,7 @@ namespace Proyecto.Models.Entities
         public int SucursalId { get; set; }
         [ForeignKey("SucursalId")]
         public virtual Sucursal Sucursal { get; set; }
+
 
         // Lógica de dominio
         public void MarcarVendido() { this.Estado = "Vendido"; }

@@ -41,9 +41,12 @@
                         <span class="descripcion">@v.Descripcion</span>
 
                         <div class="card-actions">
+                            <a class="boton btn-secondary" href="@Url.Action("Details", "Vehiculos", new { id = v.Id })">Ver</a>
                             <a href="@Url.Action("Calcular", "Cotizador", new { vehiculoId = v.Id })" class="boton btn-secondary">
                                 Cotizar
                             </a>
+                            <a href="@Url.Action("Create", "Reservas", new { vehiculoId = v.Id })" class="boton btn-primary">Reservar Cita</a>
+
                             @if (ViewBag.EsVendedor == true)
                             {
                                 <a class="boton btn-secondary" href="@Url.Action("Details", "Vehiculos", new { id = v.Id })">Ver</a>

@@ -41,12 +41,17 @@
                         <span class="descripcion">@v.Descripcion</span>
 
                         <div class="card-actions">
+                            <a class="boton btn-secondary" href="@Url.Action("Details", "Vehiculos", new { id = v.Id })">Ver</a>
+
                             <a href="@Url.Action("Calcular", "Cotizador", new { vehiculoId = v.Id })" class="boton btn-secondary">
                                 Cotizar
                             </a>
+
+                            <!-- CORREGIDO: Se cambió Model.Id por v.Id -->
+                            <a href="@Url.Action("Create", "Reservas", new { vehiculoId = v.Id })" class="boton btn-primary">Reservar Cita</a>
+
                             @if (ViewBag.EsVendedor == true)
                             {
-                                <a class="boton btn-secondary" href="@Url.Action("Details", "Vehiculos", new { id = v.Id })">Ver</a>
                                 <a class="boton btn-secondary" href="@Url.Action("Edit", "Vehiculos", new { id = v.Id })">Editar</a>
                                 <a class="boton btn-danger" href="@Url.Action("Delete", "Vehiculos", new { id = v.Id })">Eliminar</a>
                             }
